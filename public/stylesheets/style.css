@@ -1,0 +1,57 @@
+body {
+  /* padding: 50px; */
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.matrix {
+
+  width: 900px;
+  height: 900px;
+  margin: auto;
+  position: relative;
+
+}
+
+.background-image {
+  background: url('/images/matrix.png');
+  width: 900px;
+  height: 900px;
+  filter: blur(15px);
+  position: absolute;
+}
+
+
+.cursor-circle {
+  border-radius: 50%;
+  background: url('/images/matrix.png');
+  position: absolute;
+}
+
+.cursor-circle__inner {
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+
+.cursor-circle__outer {
+  filter: blur(4px);
+  width: 200px;
+  height: 200px;
+}
+
+.cursor-circle__middle {
+  filter: blur(1px);
+  width: 120px;
+  height: 120px;
+  z-index: 1;
+}
