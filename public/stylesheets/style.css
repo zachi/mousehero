@@ -13,13 +13,12 @@ body {
   height: 100%;
 }
 
-.matrix {
-
+.stage {
+  position: relative;
   width: 900px;
   height: 900px;
   margin: auto;
-  position: relative;
-
+  overflow: hidden;
 }
 
 .background-image {
@@ -54,4 +53,16 @@ body {
   width: 120px;
   height: 120px;
   z-index: 1;
+}
+
+.instructions h1 {
+  margin: 9% auto;
+  width: 215px;
+}
+
+.fixation {
+  text-align: center;
+  margin: 20% auto;
+  width: 50px;
+  font-size: 50px;
 }

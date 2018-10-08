@@ -1,4 +1,3 @@
-//import matrix from "./matrix.js";
 
 export default (function () {
 
@@ -6,7 +5,7 @@ export default (function () {
 
   function startInterrupt() {
 
-    audioDomElement.volume = 0.2;
+    audioDomElement.volume = 0.1;
   }
 
   function stopInterrupt() {

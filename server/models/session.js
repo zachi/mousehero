@@ -4,7 +4,7 @@ let sessionSchema = new mongoose.Schema({
   number: String,
   date: Date,
   stimuliSet: String,
-  sessionType: String,
+  taskType: String,
   mouseMovements: Array
 })
 module.exports = mongoose.model('Session', sessionSchema)

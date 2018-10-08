@@ -32,9 +32,9 @@ function updateCursor(upX, upY, e){
   return{
 
     init:function(){
-      cursorCircleInner = document.querySelector('.cursor-circle__inner');
-      cursorCircleOuter = document.querySelector('.cursor-circle__outer');
-      cursorCircleMiddle = document.querySelector('.cursor-circle__middle');
+      cursorCircleInner = document.querySelector('.stage .cursor-circle__inner');
+      cursorCircleOuter = document.querySelector('.stage .cursor-circle__outer');
+      cursorCircleMiddle = document.querySelector('.stage .cursor-circle__middle');
 
     },
     updateCursor:updateCursor

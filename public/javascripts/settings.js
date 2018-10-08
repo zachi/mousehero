@@ -26,10 +26,10 @@ export default (function () {
     set: function(value) { _stimuliSet = value;  }
   });
 
-  var _sessionType;
-  Object.defineProperty(self,"sessionType",{
-    get: function() { return _sessionType; },
-    set: function(value) { _sessionType = value;  }
+  var _taskType;
+  Object.defineProperty(self,"taskType",{
+    get: function() { return _taskType; },
+    set: function(value) { _taskType = value;  }
   });
 
   return self;

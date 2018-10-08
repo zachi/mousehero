@@ -4,7 +4,7 @@ let coordinateSchema = new mongoose.Schema({
   sessionNumber: String,
   sessionDate: Date,
   stimuliSet: String, 
-  sessionType: String,
+  taskType: String,
   x:Number,
   y:Number,
   // location: {

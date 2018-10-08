@@ -1,30 +1,25 @@
-import session from "./session.js"
+import task from "../pages/task.js"
+import instructions from "../pages/instructions.js";
+import theend from "../pages/the-end.js";
 import audio from "./audio.js"
 import settings from "./settings.js";
+import router from "./router.js"
 
 onload = function () {
 
-  setEventsHandling();
   settings.sessionDate = new Date();
   settings.userId = 'hardcoded id';
   settings.sessionNumber = '112233';
   settings.stimuliSet = 'A';
-  settings.sessionType = 'test';
+  settings.taskType = 'test';
 
-}
-window.session = session;
-
-function setEventsHandling() {
-  audio.init('audio/chopin-6-2-alianello.mp3');
-  session.start();
-  document.querySelector('.submit').addEventListener('click', () => {
-    axios.post('/coordinates', session.getCoordinates())
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+  router.init({
+    '/task':task,
+    '/instructions':instructions,
+    '/theend':theend
   })
+  router.navigate('/instructions');
+
 }
+window.task = task;
+
