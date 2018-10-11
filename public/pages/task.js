@@ -21,9 +21,9 @@ export default (function () {
   var matrices = [
     new matrix('matrix.png'),
     new matrix('matrix.png'),
-    new matrix('matrix.png'),  
-    new matrix('matrix.png'),
-    new matrix('matrix.png'),
+    // new matrix('matrix.png'),  
+    // new matrix('matrix.png'),
+    // new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
@@ -123,13 +123,13 @@ export default (function () {
     {
       fixationDomElement.style.display = '';
       showFixation();
-      setTimeout(mainExecutionLoop, 1112000);
+      //setTimeout(mainExecutionLoop, 1112000);
       return;
     }
     
     currentMatrixIndex++;
     showMatrix(matrices[currentMatrixIndex]);
-    setTimeout(mainExecutionLoop, 25000);
+    setTimeout(mainExecutionLoop, settings.matrixDisplayDuration);
   
   }
 
@@ -154,17 +154,7 @@ export default (function () {
     audio.play();
     
 
-    // document.querySelector('.submit').addEventListener('click', () => {
-    //   axios.post('/coordinates', task.getCoordinates())
-    //     .then(function (response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-
-    // })
-
+   
   }
 
   return {

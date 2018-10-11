@@ -32,5 +32,13 @@ export default (function () {
     set: function(value) { _taskType = value;  }
   });
 
+  var _matrixDisplayDuration;
+  Object.defineProperty(self,"matrixDisplayDuration",{
+    get: function() { return _matrixDisplayDuration; },
+    set: function(value) { _matrixDisplayDuration = value;  }
+  });
+
+  
+
   return self;
 })();

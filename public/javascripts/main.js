@@ -12,7 +12,7 @@ onload = function () {
   settings.sessionNumber = '112233';
   settings.stimuliSet = 'A';
   settings.taskType = 'test';
-
+  settings.matrixDisplayDuration = 3000;
   router.init({
     '/task':task,
     '/instructions':instructions,
