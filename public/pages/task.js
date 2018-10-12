@@ -17,12 +17,13 @@ export default (function () {
   var stageOffset;
   var coordinates = [];
   var fixationDomElement;
+  var cursorOnFixationTimeout;
 
   var matrices = [
     new matrix('matrix.png'),
     new matrix('matrix.png'),
-    // new matrix('matrix.png'),  
-    // new matrix('matrix.png'),
+    new matrix('matrix.png'),  
+    new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
@@ -54,10 +55,22 @@ export default (function () {
     }
     currentStimulus = newStimulus;
     registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus);
-  }  
-  
+  }
+
   function handleFixationMouseOver(e) {
-    setTimeout(mainExecutionLoop, 500);
+    console.log('over');
+    cursorOnFixationTimeout = setTimeout(() => {
+
+      console.log('enough time on fixation');
+      mainExecutionLoop();
+
+    }, 2000);
+
+  }
+
+  function handleFixationMouseOut(e) {
+    clearTimeout(cursorOnFixationTimeout);
+    console.log('out');
   }
 
   function registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus) {
@@ -99,38 +112,37 @@ export default (function () {
   }
 
   function showFixation() {
+
     stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect)
-    //fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
+    fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
 
     fixationDomElement.style.display = '';
     stageDomElement.removeChild(matrices[currentMatrixIndex].getDomElement());
   }
 
-  function istaskEnded(){
-    return currentMatrixIndex == matrices.length -1;
+  function istaskEnded() {
+    return currentMatrixIndex == matrices.length - 1;
   }
 
-  function isTimeForFixation(){
+  function isTimeForFixation() {
     return stageDomElement.querySelector('.matrix') !== null;
   }
 
   function mainExecutionLoop() {
+
     if (istaskEnded()) {
       router.navigate("/theend");
       return;
     }
-    if(isTimeForFixation())
-    {
-      fixationDomElement.style.display = '';
+    if (isTimeForFixation()) {
       showFixation();
-      //setTimeout(mainExecutionLoop, 1112000);
       return;
     }
-    
+
     currentMatrixIndex++;
     showMatrix(matrices[currentMatrixIndex]);
     setTimeout(mainExecutionLoop, settings.matrixDisplayDuration);
-  
+
   }
 
   function start() {
@@ -139,6 +151,9 @@ export default (function () {
     stageDomElement = document.querySelector('.stage');
     stageDomElement.appendChild(fixationDomElement);
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
+    fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
+
+
     stageOffset = {
       "left": stageDomElement.offsetLeft,
       "top": stageDomElement.offsetTop
@@ -148,13 +163,13 @@ export default (function () {
 
     //currentMatrix = matrices[0];
     //showMatrix(currentMatrix);
-    
+
     audio.init('audio/chopin-6-2-alianello.mp3');
 
     audio.play();
-    
 
-   
+
+
   }
 
   return {
