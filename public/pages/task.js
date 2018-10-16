@@ -1,10 +1,12 @@
 //import matrices from "./matrices.js";
 import matrix from "../javascripts/matrix.js";
+import emotionTypes from "../javascripts/emotionTypes.js"
 import matrixCursorEffect from "../javascripts/matrix-cursor-effect.js";
 import audio from "../javascripts/audio.js";
 import settings from "../javascripts/settings.js";
 import utils from "../javascripts/utils.js";
 import router from "../javascripts/router.js";
+
 
 export default (function () {
 
@@ -20,10 +22,10 @@ export default (function () {
   var cursorOnFixationTimeout;
 
   var matrices = [
-    new matrix('matrix.png'),
-    new matrix('matrix.png'),
-    new matrix('matrix.png'),  
-    new matrix('matrix.png'),
+    // new matrix('matrix.png'),
+    // new matrix('matrix.png'),
+    // new matrix('matrix.png'),  
+    // new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
@@ -33,6 +35,7 @@ export default (function () {
   ];
 
   function handleMatrixCursorEffect(e) {
+    console.log('x:' + e.clientX + ' y:' + e.clientY);
 
     e.preventDefault();
     var xCoordinate = e.clientX - stageOffset.left;
@@ -46,7 +49,7 @@ export default (function () {
       if (newStimulus.type !== currentStimulus.type) {
 
         console.log('type change');
-        if (newStimulus.type === 'aversive')
+        if (newStimulus.type === emotionTypes.avarsive)
           audio.startInterrupt();
         else
           audio.stopInterrupt();
@@ -103,11 +106,15 @@ export default (function () {
   }
 
   function showMatrix(matrix) {
-    //stageDomElement.removeEventListener('mouseover', handleFixationMouseOver)
     stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect)
     fixationDomElement.style.display = 'none';
     stageDomElement.appendChild(matrix.getDomElement());
     matrixCursorEffect.init();
+    handleMatrixCursorEffect({
+      clientX: document.body.clientWidth/2,
+      clientY: document.body.clientHeight /2,
+      preventDefault:function(){}
+    })
 
   }
 
@@ -131,7 +138,7 @@ export default (function () {
   function mainExecutionLoop() {
 
     if (istaskEnded()) {
-      router.navigate("/theend");
+      router.navigate("/the-end");
       return;
     }
     if (isTimeForFixation()) {
@@ -158,13 +165,13 @@ export default (function () {
       "left": stageDomElement.offsetLeft,
       "top": stageDomElement.offsetTop
     };
-
+    matrices = settings.matrices;
+    audio.init('audio/chopin-6-2-alianello.mp3');
     mainExecutionLoop();
 
     //currentMatrix = matrices[0];
     //showMatrix(currentMatrix);
 
-    audio.init('audio/chopin-6-2-alianello.mp3');
 
     audio.play();
 

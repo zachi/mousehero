@@ -38,7 +38,24 @@ export default (function () {
     set: function(value) { _matrixDisplayDuration = value;  }
   });
 
+  var _matrices;
+  Object.defineProperty(self,"matrices",{
+    get: function() { return _matrices; },
+    set: function(value) { _matrices = value;  }
+  });
   
+  var _imagesBlock;
+  Object.defineProperty(self,"imagesBlock",{
+    get: function() { return _imagesBlock; },
+    set: function(value) { _imagesBlock = value;  }
+  });
+
+  var _imagesFolderPath;
+  Object.defineProperty(self,"imagesFolderPath",{
+    get: function() { return _imagesFolderPath; },
+    set: function(value) { _imagesFolderPath = value;  }
+  });
+
 
   return self;
 })();

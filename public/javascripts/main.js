@@ -1,9 +1,10 @@
 import task from "../pages/task.js"
+import sessionForm from "../pages/session-form.js";
 import instructions from "../pages/instructions.js";
-import theend from "../pages/the-end.js";
-import audio from "./audio.js"
+import theEnd from "../pages/the-end.js";
 import settings from "./settings.js";
 import router from "./router.js"
+
 
 onload = function () {
 
@@ -13,13 +14,16 @@ onload = function () {
   settings.stimuliSet = 'A';
   settings.taskType = 'test';
   settings.matrixDisplayDuration = 3000;
+  settings.imagesFolderPath = `images/Set ${settings.stimuliSet}/result/${settings.taskType}/block ${settings.imagesBlock}/`;
   router.init({
-    '/task':task,
-    '/instructions':instructions,
-    '/theend':theend
+    '/session-form': sessionForm,
+    '/instructions': instructions,
+    '/task': task,    
+    '/the-end': theEnd
   })
-  router.navigate('/instructions');
+  //router.navigate('/session-form');
+  router.navigate('/session-form');
+
 
 }
 window.task = task;
-

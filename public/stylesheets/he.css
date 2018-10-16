@@ -1,0 +1,10 @@
+body{
+  direction: rtl;
+  text-align: right;
+  font-family: arial; 
+}
+
+h1{
+  font-size: 2.2rem;
+    font-weight: normal;
+}
