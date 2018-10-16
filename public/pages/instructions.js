@@ -1,5 +1,5 @@
-import utils from "../javascripts/utils.js"
-import router from "../javascripts/router.js";
+import utils from "../models/utils.js"
+import router from "../models/router.js";
 
 
 export default (function () {

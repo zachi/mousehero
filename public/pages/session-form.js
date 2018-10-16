@@ -1,7 +1,7 @@
-import utils from "../javascripts/utils.js"
-import router from "../javascripts/router.js";
-import settings from "../javascripts/settings.js";
-import matrix from "../javascripts/matrix.js";
+import utils from "../models/utils.js"
+import router from "../models/router.js";
+import settings from "../models/settings.js";
+import matrix from "../models/matrix.js";
 
 
 export default (function () {

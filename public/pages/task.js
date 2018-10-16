@@ -1,11 +1,11 @@
 //import matrices from "./matrices.js";
-import matrix from "../javascripts/matrix.js";
-import emotionTypes from "../javascripts/emotionTypes.js"
-import matrixCursorEffect from "../javascripts/matrix-cursor-effect.js";
-import audio from "../javascripts/audio.js";
-import settings from "../javascripts/settings.js";
-import utils from "../javascripts/utils.js";
-import router from "../javascripts/router.js";
+import matrix from "../models/matrix.js";
+import emotionTypes from "../models/emotionTypes.js"
+import matrixCursorEffect from "../models/matrix-cursor-effect.js";
+import audio from "../models/audio.js";
+import settings from "../models/settings.js";
+import utils from "../models/utils.js";
+import router from "../models/router.js";
 
 
 export default (function () {

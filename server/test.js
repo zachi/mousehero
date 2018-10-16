@@ -1,6 +1,6 @@
 var fs = require('fs');
 xml2js = require('xml2js');
-//var matrix = require('../public/javascripts/matrix.js')
+//var matrix = require('../public/models/matrix.js')
 
 var stimuliSet = 'A';
 var taskType = 'post';

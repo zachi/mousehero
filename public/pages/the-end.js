@@ -1,4 +1,4 @@
-import utils from "../javascripts/utils.js"
+import utils from "../models/utils.js"
 
 export default (function () {
 

@@ -2,7 +2,7 @@
 @import "/stylesheets/he.css";
 @import "/stylesheets/instructions.css";
 
-body{
+body {
   height: 100%;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@ body {
   width: 900px;
   height: 900px;
   /* margin: auto;*/
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .background-image {
@@ -75,4 +75,9 @@ body {
 
 h1 {
   text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: normal;
 }
