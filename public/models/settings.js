@@ -56,6 +56,12 @@ export default (function () {
     set: function(value) { _imagesFolderPath = value;  }
   });
 
+  var _measurementTyming;
+  Object.defineProperty(self,"measurementTyming",{
+    get: function() { return _measurementTyming; },
+    set: function(value) { _measurementTyming = value;  }
+  });
 
+  
   return self;
 })();

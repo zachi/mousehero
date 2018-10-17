@@ -1,7 +1,43 @@
 <div class="session-form">
-  <label for="subject-id" class="session-form__label" >ת.ז:</label> 
-  <input type="text" class="session-form__text session-form__subject-id" />
-  <label for="session-number" class="session-form__label">מספר אימון:</label>
-  <input type="text" class="session-form__text session-form__session-number" />
-  <button class="session-form__continue-button">המשך</button>
+  <label for="subject-id" class="session-form__label" >{{subjectId}}</label> 
+  <input type="text" class="session-form__text session-form__subject-id" placeholder="{{subjectId}}" />
+  
+  <label for="set" class="session-form__label">{{set}}</label>
+  <select class="session-form__select session-form__set">
+    <option value="">select...</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+  </select>
+  
+  <label class="session-form__label session-form__measurement-timing">{{measurementTiming}}</label>
+  <select class="session-form__select session-form__measurement-timing" >
+    <option value="">select...</option>
+    <option>pre</option>
+    <option>training</option>
+    <option>post</option>
+  </select>
+
+  <label class="session-form__label session-form__block-number">{{blockNumber}}</label>
+  <select class="session-form__select session-form__block-number">
+    <option value="">select...</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
+    <option>13</option>
+    <option>14</option>
+    <option>15</option>
+    <option>16</option>
+  </select>
+
+  <button class="session-form__continue-button">{{continue}}</button>
+  <div class="session-form__error"></div>
 </div>

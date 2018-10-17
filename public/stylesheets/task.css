@@ -1,0 +1,50 @@
+
+.stage {
+  position: relative;
+  width: 900px;
+  height: 900px;
+  /* margin: auto;*/
+  overflow: hidden;
+}
+
+.background-image {
+  width: 900px;
+  height: 900px;
+  filter: blur(15px);
+  position: absolute;
+}
+
+
+.cursor-circle {
+  border-radius: 50%;
+  position: absolute;
+}
+
+.cursor-circle__inner {
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+
+.cursor-circle__outer {
+  filter: blur(4px);
+  width: 200px;
+  height: 200px;
+}
+
+.cursor-circle__middle {
+  filter: blur(1px);
+  width: 120px;
+  height: 120px;
+  z-index: 1;
+}
+
+.fixation {
+  text-align: center;
+  width: 50px;
+  font-size: 50px;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  position: absolute;
+
+}
