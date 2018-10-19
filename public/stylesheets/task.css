@@ -1,9 +1,15 @@
+.task{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:100vh;
 
+}
 .stage {
   position: relative;
   width: 900px;
   height: 900px;
-  /* margin: auto;*/
+  margin: auto;
   overflow: hidden;
 }
 
@@ -48,3 +54,5 @@
   position: absolute;
 
 }
+
+.matrix { cursor: none; }

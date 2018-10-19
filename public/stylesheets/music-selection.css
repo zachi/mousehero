@@ -1,0 +1,38 @@
+.music-selection{
+  width: 600px;
+  margin: 50px auto;
+}
+.music-selection__playlists{
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  padding: 30px 50px;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  text-align: left;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+.music-selection__playlist-button{
+  font-size: 20px;
+  color: #494b4d;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  line-height: 1.5;
+  border-radius: .25rem;
+  box-sizing: content-box;
+  margin: 1rem 0 0;
+}
+
+.music-selection__playlist-button:hover {
+  color: #fff;
+  background-color: #494b4d;
+  border: 2px solid #494b4d;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+
+.music-selection .instructions__top-text{
+  margin:100px 0 50px;
+}

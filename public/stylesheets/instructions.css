@@ -3,6 +3,15 @@
   width: 50%;
 }
 
+.instructions__top-text{
+
+  margin: 80px 0 50px;
+
+}
+.instructions__bottom-text{
+  margin-top: 50px;
+}
+
 
 
 table {

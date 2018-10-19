@@ -2,27 +2,34 @@
 @import "/stylesheets/he.css";
 @import "/stylesheets/instructions.css";
 @import "/stylesheets/task.css";
+@import "/stylesheets/music-selection.css";
 
 html,
 body {
   margin: 0;
-  height: 100%;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   color:#494b4d;
 }
 
-
-
-h1 {
+h1, h3{
   text-align: center;
+  font-weight: normal;
+}
+h1{
+  font-size: 2rem;
 }
 
-h1 {
-  font-size: 2rem;
-  font-weight: normal;
+
+audio{
+  display: none;
+}
+
+.the-end .instructions__top-text{
+  margin-top:45vh;
+}
+.the-end button{
+  visibility:hidden;
 }

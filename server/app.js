@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var coordinatesRouter = require('./routes/coordinates');
-var database = require('./config/database');
+var musicRouter = require('./routes/music');
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -13,6 +13,7 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname.slice(0, -('server'.length)) , 'public')));
 app.use('/coordinates', coordinatesRouter);
+app.use('/music', musicRouter);
 
 
 // catch 404 and forward to error handler

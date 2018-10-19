@@ -62,10 +62,10 @@ export default (function () {
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();
-    settings.matrixDisplayDuration = 3000;
+    settings.matrixDisplayDuration = 8000;
 
     var mapUrl = settings.imageFolderPath + `/map.xml`;
-
+    document.documentElement.webkitRequestFullscreen();
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
       //dump(xhr.responseXML.documentElement.nodeName);
@@ -81,8 +81,8 @@ export default (function () {
       }
 
       settings.matrices = matrices;
-
-      router.navigate('/instructions');
+      
+      router.navigate('/music-selection');
 
 
     }
@@ -98,9 +98,14 @@ export default (function () {
   return {
     show: function () {
 
-      document.body.innerHTML = utils.compileTemplate("session-form", texts);
+      document.body.appendChild( utils.compileTemplateToDomElement("session-form", texts));
       document.body.querySelector('.session-form__continue-button').addEventListener('click', handleContinueClick)
 
+    },
+    hide:function(){
+      document.body.querySelector('.session-form__continue-button').removeEventListener('click', handleContinueClick)
+      var elem = document.querySelector('.session-form');
+      elem.parentNode.removeChild(elem);     
     }
   }
 })()

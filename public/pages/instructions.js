@@ -11,10 +11,14 @@ export default (function () {
   }
   return {
     show: function () {
-
-      document.body.innerHTML = utils.compileTemplate("instructions-template", {});
+      document.body.appendChild( utils.compileTemplateToDomElement("instructions-template", {}));
       document.body.addEventListener('keydown', handleSpacebarClick)
 
+    },
+    hide:function(){
+      document.body.removeEventListener('keydown', handleSpacebarClick)
+      var elem = document.querySelector('.instructions');
+      elem.parentNode.removeChild(elem);     
     }
   }
 })()

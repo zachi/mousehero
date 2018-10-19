@@ -111,9 +111,9 @@ export default (function () {
     stageDomElement.appendChild(matrix.getDomElement());
     matrixCursorEffect.init();
     handleMatrixCursorEffect({
-      clientX: document.body.clientWidth/2,
-      clientY: document.body.clientHeight /2,
-      preventDefault:function(){}
+      clientX: document.body.clientWidth / 2,
+      clientY: document.body.clientHeight / 2,
+      preventDefault: function () {}
     })
 
   }
@@ -122,17 +122,19 @@ export default (function () {
 
     stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect)
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
-
     fixationDomElement.style.display = '';
-    stageDomElement.removeChild(matrices[currentMatrixIndex].getDomElement());
+    if (currentMatrixIndex !== -1) {
+      
+      stageDomElement.removeChild(matrices[currentMatrixIndex].getDomElement());
+    }
   }
 
   function istaskEnded() {
-    return currentMatrixIndex == matrices.length - 1;
+    return currentMatrixIndex == 2;//matrices.length - 1;
   }
 
   function isTimeForFixation() {
-    return stageDomElement.querySelector('.matrix') !== null;
+    return fixationDomElement.style.display == 'none';
   }
 
   function mainExecutionLoop() {
@@ -152,7 +154,7 @@ export default (function () {
 
   }
 
-  function start() {
+  function show() {
     document.body.innerHTML = utils.compileTemplate("task-template");
     fixationDomElement = utils.compileTemplateToDomElement("fixation-template")
     stageDomElement = document.querySelector('.stage');
@@ -166,9 +168,9 @@ export default (function () {
       "top": stageDomElement.offsetTop
     };
     matrices = settings.matrices;
-    audio.init('audio/chopin-6-2-alianello.mp3');
+    //audio.init('audio/chopin-6-2-alianello.mp3');
     mainExecutionLoop();
-
+    //showFixation();
     //currentMatrix = matrices[0];
     //showMatrix(currentMatrix);
 
@@ -180,12 +182,15 @@ export default (function () {
   }
 
   return {
-    start: start,
+    
     getCoordinates: function () {
       return coordinates;
     },
-    show: start
-
+    show: show,
+    hide:function(){
+      var elem = document.querySelector('.task');
+      elem.parentNode.removeChild(elem);     
+    }
 
   };
 }());
