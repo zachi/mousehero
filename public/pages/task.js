@@ -16,6 +16,7 @@ export default (function () {
   };
   var stageDomElement;
   var currentMatrixIndex = -1;
+  var nextMatrixElement;
   var stageOffset;
   var coordinates = [];
   var fixationDomElement;
@@ -105,10 +106,27 @@ export default (function () {
 
   }
 
+  function loaAndHideMatrix(matrix) {
+
+    nextMatrixElement = matrix.getDomElement();
+    nextMatrixElement.classList.add('matrix--loaded-hidden');
+    stageDomElement.insertBefore(nextMatrixElement, fixationDomElement);
+
+  }
+
+  function showCurrentMatrix() {
+    showMatrix(matrices[currentMatrixIndex]);
+    if (currentMatrixIndex < matrices.length - 2) {
+      loaAndHideMatrix(matrices[currentMatrixIndex + 1]);
+    }
+  }
+
   function showMatrix(matrix) {
     stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect)
     fixationDomElement.style.display = 'none';
-    stageDomElement.appendChild(matrix.getDomElement());
+    //stageDomElement.appendChild( matrix.getDomElement());
+
+    nextMatrixElement.classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
     handleMatrixCursorEffect({
       clientX: document.body.clientWidth / 2,
@@ -124,13 +142,13 @@ export default (function () {
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
     fixationDomElement.style.display = '';
     if (currentMatrixIndex !== -1) {
-      
+
       stageDomElement.removeChild(matrices[currentMatrixIndex].getDomElement());
     }
   }
 
-  function istaskEnded() {
-    return currentMatrixIndex == 2;//matrices.length - 1;
+  function isEndOfTask() {
+    return currentMatrixIndex == matrices.length - 1;
   }
 
   function isTimeForFixation() {
@@ -139,7 +157,7 @@ export default (function () {
 
   function mainExecutionLoop() {
 
-    if (istaskEnded()) {
+    if (isEndOfTask()) {
       router.navigate("/the-end");
       return;
     }
@@ -149,7 +167,7 @@ export default (function () {
     }
 
     currentMatrixIndex++;
-    showMatrix(matrices[currentMatrixIndex]);
+    showCurrentMatrix();
     setTimeout(mainExecutionLoop, settings.matrixDisplayDuration);
 
   }
@@ -169,6 +187,13 @@ export default (function () {
     };
     matrices = settings.matrices;
     //audio.init('audio/chopin-6-2-alianello.mp3');
+    // nextMatrixElement = matrices[0].getDomElement();
+    //   nextMatrixElement.style.backgroundPosition = '-99999px -99999px';
+    //   stageDomElement.appendChild(nextMatrixElement);
+
+    //preload first matrix image
+    loaAndHideMatrix(matrices[0])
+
     mainExecutionLoop();
     //showFixation();
     //currentMatrix = matrices[0];
@@ -182,14 +207,14 @@ export default (function () {
   }
 
   return {
-    
+
     getCoordinates: function () {
       return coordinates;
     },
     show: show,
-    hide:function(){
+    hide: function () {
       var elem = document.querySelector('.task');
-      elem.parentNode.removeChild(elem);     
+      elem.parentNode.removeChild(elem);
     }
 
   };

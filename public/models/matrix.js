@@ -4,13 +4,18 @@ import settings from "./settings.js"
 
 class matrix {
     constructor(cells) {
-        this._stimuli = [[],[],[],[]];
-        this.imageName =  settings.imageFolderPath + cells[1].textContent;
+        this._stimuli = [
+            [],
+            [],
+            [],
+            []
+        ];
+        this.imageName = settings.imageFolderPath + cells[1].textContent;
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
 
                 this._stimuli[i].push({
-                    type: cells[i *4 + j + 2].textContent,
+                    type: cells[i * 4 + j + 2].textContent,
                     gender: "UNKNOWN",
                     name: (i * 4 + j).toString()
                 });
@@ -53,10 +58,17 @@ class matrix {
 
     getDomElement() {
         if (!this.domElement)
+            this.loadElement();
+        return this.domElement;
+    }
+
+    loadElement() {
+        if (!this.domElement)
+        {    
             this.domElement = utils.compileTemplateToDomElement("matrix-template", {
                 name: this.imageName
             });
-        return this.domElement;
+        }
     }
 }
 export default matrix;

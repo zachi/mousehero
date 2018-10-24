@@ -56,3 +56,13 @@
 }
 
 .matrix { cursor: none; }
+
+.matrix--loaded-hidden{
+  cursor: inherit;
+}
+.matrix--loaded-hidden .background-image, 
+.matrix--loaded-hidden .cursor-circle
+{
+  background-position: -999999px -999999px;
+  background-repeat: no-repeat; 
+}
