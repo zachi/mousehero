@@ -3,33 +3,58 @@
   width: 50%;
 }
 
-.instructions__top-text{
+.instructions__top-text {
 
-  margin: 80px 0 50px;
+  margin: 130px 0 50px;
 
 }
-.instructions__bottom-text{
-  margin-top: 50px;
-}
 
+.instructions__matrix-second .instructions__top-text,
+.instructions__fixation .instructions__top-text {
+  margin-top: 40vh;
+}
 
 
 table {
-	height: 600px;
-	width: 600px;
-  margin: 0 auto;
+  height: 600px;
+  width: 600px;
+  margin: 0 auto 35px;
   padding: 0;
-	border-collapse: collapse;
+  border-collapse: collapse;
 }
-td { 
-	border: 1px solid black;
-	border-spacing: 0;
-	height: 100px;
-	width: 100px;
-  margin: 0; padding: 0;
+
+td {
+  border: 1px solid black;
+  border-spacing: 0;
+  height: 100px;
+  width: 100px;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  font-size:1.5rem;
+  font-size: 1.5rem;
 
 }
 
+.instructions>div {
+  display: none;
+}
 
+.instructions--matrix-first .instructions__matrix-first {
+  display: block;
+}
+
+.instructions--matrix-second .instructions__matrix-second {
+  display: block;
+}
+
+.instructions--fixation .instructions__fixation {
+  display: block;
+}
+
+.instructions__continue {
+  position: absolute;
+  bottom: 5vh;
+  width: 100%;
+  text-align: center;
+  left: 0;
+}

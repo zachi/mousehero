@@ -36,8 +36,7 @@ export default (function () {
   ];
 
   function handleMatrixCursorEffect(e) {
-    console.log('x:' + e.clientX + ' y:' + e.clientY);
-
+    //console.log('x:' + e.clientX + ' y:' + e.clientY);
     e.preventDefault();
     var xCoordinate = e.clientX - stageOffset.left;
     var yCoordinate = e.clientY - stageOffset.top;
@@ -46,16 +45,14 @@ export default (function () {
     var newStimulus = matrices[currentMatrixIndex].getStimulusByScreenCoordinates(xCoordinate, yCoordinate);
     //console.log(newStimulus.name);
     //console.log('x:' + e.clientX + ' y:' + e.clientY);
-    if (newStimulus.name !== currentStimulus.name) {
-      if (newStimulus.type !== currentStimulus.type) {
-
-        console.log('type change');
-        if (newStimulus.type === emotionTypes.avarsive)
-          audio.startInterrupt();
-        else
-          audio.stopInterrupt();
-      }
-
+    if (settings.taskType === 'training' &&
+      newStimulus.name !== currentStimulus.name &&
+      newStimulus.type !== currentStimulus.type) {
+      console.log('type change');
+      if (newStimulus.type === emotionTypes.avarsive)
+        audio.startInterrupt();
+      else
+        audio.stopInterrupt();
     }
     currentStimulus = newStimulus;
     registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus);
@@ -115,8 +112,12 @@ export default (function () {
   }
 
   function showCurrentMatrix() {
+    if (settings.taskType === 'training' && currentMatrixIndex != 0) {
+      stageDomElement.removeChild(matrices[currentMatrixIndex - 1].getDomElement());
+    }
+
     showMatrix(matrices[currentMatrixIndex]);
-    if (currentMatrixIndex < matrices.length - 2) {
+    if (currentMatrixIndex < matrices.length - 1) {
       loaAndHideMatrix(matrices[currentMatrixIndex + 1]);
     }
   }
@@ -128,11 +129,24 @@ export default (function () {
 
     nextMatrixElement.classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
-    handleMatrixCursorEffect({
+    handleMatrixCursorEffect(getMatrixCursorInitialPosition())
+
+  }
+
+  function getMatrixCursorInitialPosition() {
+    if (settings.taskType == 'training' && coordinates.length > 0) {
+      var lastPosition = coordinates[coordinates.length - 1];
+      return {
+        clientX: lastPosition.x + stageOffset.left,
+        clientY: lastPosition.y + stageOffset.top,
+        preventDefault: function () {}
+      };
+    }
+    return {
       clientX: document.body.clientWidth / 2,
       clientY: document.body.clientHeight / 2,
       preventDefault: function () {}
-    })
+    };
 
   }
 
@@ -152,7 +166,7 @@ export default (function () {
   }
 
   function isTimeForFixation() {
-    return fixationDomElement.style.display == 'none';
+    return settings.taskType == 'measurement' && fixationDomElement.style.display == 'none';
   }
 
   function mainExecutionLoop() {
@@ -199,10 +213,9 @@ export default (function () {
     //currentMatrix = matrices[0];
     //showMatrix(currentMatrix);
 
-
-    audio.play();
-
-
+    if (settings.taskType == 'training') {
+      audio.play();
+    }
 
   }
 

@@ -62,7 +62,8 @@ export default (function () {
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();
-    settings.matrixDisplayDuration = 20000;
+    //settings.matrixDisplayDuration = 20000;
+    settings.matrixDisplayDuration = settings.taskType == 'training' ? 24000 : 6000;
 
     var mapUrl = settings.imageFolderPath + `/map.xml`;
     document.documentElement.webkitRequestFullscreen();
@@ -82,8 +83,8 @@ export default (function () {
 
       settings.matrices = matrices;
       
-      router.navigate('/music-selection');
-
+      router.navigate(settings.taskType == 'training' ? '/music-selection' : '/instructions');
+      
 
     }
     xhr.onerror = function () {

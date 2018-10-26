@@ -4,13 +4,9 @@ import audio from "../models/audio.js";
 
 
 export default (function () {
-  function handlePlaylistSelection(e) {
-    
+  function handlePlaylistSelection(e) {   
       audio.init( '/music/' + e.target.innerText );
-      audio.play();
-      //setTimeout(() => {
-        router.navigate('/instructions');
-      //}, 4444); 
+      router.navigate('/instructions');
   }
   return {
     show: function () {

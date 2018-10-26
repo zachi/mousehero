@@ -4,7 +4,7 @@ export default (function () {
 
   function startInterrupt() {
 
-    audioDomElement.volume = 0.1;
+    audioDomElement.volume = 0.0;
   }
 
   function stopInterrupt() {
