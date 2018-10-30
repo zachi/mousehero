@@ -10,10 +10,11 @@ import router from "../models/router.js";
 
 export default (function () {
 
-  var currentStimulus = {
+  const blankStimulus = {
     "name": "fake name",
     "type": "fake type"
   };
+  var currentStimulus = blankStimulus;
   var stageDomElement;
   var currentMatrixIndex = -1;
   var nextMatrixElement;
@@ -107,15 +108,23 @@ export default (function () {
 
     nextMatrixElement = matrix.getDomElement();
     nextMatrixElement.classList.add('matrix--loaded-hidden');
-    stageDomElement.insertBefore(nextMatrixElement, fixationDomElement);
+    stageDomElement.prepend(nextMatrixElement);
 
   }
 
-  function showCurrentMatrix() {
-    if (settings.taskType === 'training' && currentMatrixIndex != 0) {
-      stageDomElement.removeChild(matrices[currentMatrixIndex - 1].getDomElement());
-    }
+  function removePreviousDisplayedElement(){
+    var previousMatrix = document.querySelector('.matrix:not(.matrix--loaded-hidden)');
+    if(previousMatrix)
+      stageDomElement.removeChild(previousMatrix);
+    if(fixationDomElement && fixationDomElement.style.display !== 'none')
+      fixationDomElement.style.display = 'none';
+    
+  }
 
+  function showCurrentMatrix() {
+
+    removePreviousDisplayedElement();
+    currentStimulus = blankStimulus;
     showMatrix(matrices[currentMatrixIndex]);
     if (currentMatrixIndex < matrices.length - 1) {
       loaAndHideMatrix(matrices[currentMatrixIndex + 1]);
@@ -124,13 +133,9 @@ export default (function () {
 
   function showMatrix(matrix) {
     stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect)
-    fixationDomElement.style.display = 'none';
-    //stageDomElement.appendChild( matrix.getDomElement());
-
     nextMatrixElement.classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
     handleMatrixCursorEffect(getMatrixCursorInitialPosition())
-
   }
 
   function getMatrixCursorInitialPosition() {
@@ -154,11 +159,9 @@ export default (function () {
 
     stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect)
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
+    removePreviousDisplayedElement();
     fixationDomElement.style.display = '';
-    if (currentMatrixIndex !== -1) {
-
-      stageDomElement.removeChild(matrices[currentMatrixIndex].getDomElement());
-    }
+    
   }
 
   function isEndOfTask() {
@@ -188,30 +191,24 @@ export default (function () {
 
   function show() {
     document.body.innerHTML = utils.compileTemplate("task-template");
-    fixationDomElement = utils.compileTemplateToDomElement("fixation-template")
     stageDomElement = document.querySelector('.stage');
-    stageDomElement.appendChild(fixationDomElement);
-    fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
-    fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
 
+    if(settings.taskType == 'measurement')
+    {
+      fixationDomElement = utils.compileTemplateToDomElement("fixation-template")
+      stageDomElement.appendChild(fixationDomElement);
+      fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
+      fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
+    }
 
     stageOffset = {
       "left": stageDomElement.offsetLeft,
       "top": stageDomElement.offsetTop
     };
     matrices = settings.matrices;
-    //audio.init('audio/chopin-6-2-alianello.mp3');
-    // nextMatrixElement = matrices[0].getDomElement();
-    //   nextMatrixElement.style.backgroundPosition = '-99999px -99999px';
-    //   stageDomElement.appendChild(nextMatrixElement);
-
     //preload first matrix image
     loaAndHideMatrix(matrices[0])
-
     mainExecutionLoop();
-    //showFixation();
-    //currentMatrix = matrices[0];
-    //showMatrix(currentMatrix);
 
     if (settings.taskType == 'training') {
       audio.play();
