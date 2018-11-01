@@ -1,7 +1,19 @@
 var music = require("../models/music")
+var fs = require('fs')
 
-exports.all = function (req, res, next) {
+module.exports = (function () {
 
-	res.json( music.all());
-
-}
+  return {
+    all: function (req, res, next) {
+      res.json();
+    },
+    generateFile: function () {
+      fs.writeFile("../public/music/list.json", JSON.stringify(music.all()), function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("music/list.json file was saved!");
+      });
+    }
+  }
+})();

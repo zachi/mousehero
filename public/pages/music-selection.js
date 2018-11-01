@@ -10,7 +10,7 @@ export default (function () {
   }
   return {
     show: function () {
-      axios.get('/music')
+      axios.get('/music/list.json')
       .then(function (response) {
         document.body.appendChild( utils.compileTemplateToDomElement("music-selection-template", {playlists:response.data}));
         document.querySelectorAll('.music-selection__playlist-button')

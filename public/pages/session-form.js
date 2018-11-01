@@ -65,7 +65,7 @@ export default (function () {
     //settings.matrixDisplayDuration = 20000;
     settings.matrixDisplayDuration = settings.taskType == 'training' ? 24000 : 6000;
 
-    var mapUrl = settings.imageFolderPath + `/map.xml`;
+    var mapUrl = settings.imageFolderPath + `map.xml`;
     document.documentElement.webkitRequestFullscreen();
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
