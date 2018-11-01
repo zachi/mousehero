@@ -5,7 +5,7 @@ module.exports = (function () {
 
   return {
     all: function (req, res, next) {
-      res.json();
+      res.json(music.all());
     },
     generateFile: function () {
       fs.writeFile("../public/music/list.json", JSON.stringify(music.all()), function (err) {

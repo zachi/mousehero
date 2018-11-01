@@ -3,25 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var coordinatesRouter = require('./routes/coordinates');
-var musicRouter = require('./routes/music');
 var app = express();
 var bodyParser = require('body-parser');
+var coordinates = require("./controllers/coordinates");
+var music = require("./controllers/music");
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname.slice(0, -('server'.length)), 'public')));
-app.use('/coordinates', coordinatesRouter);
-app.use('/music', musicRouter);
 
-// app.get("/appcache.manifest", function (req, res) {
-//   res.contentType("text/cache-manifest");
-
-//   var contents = fs.readFileSync(path.join(__dirname, '../../public/appcache.manifest'));
-//   res.end(cachefile.all());
-
-// });
+app.post('/coordinates', coordinates.add);
+app.get('/music', music.all);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
