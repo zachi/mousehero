@@ -1,9 +1,10 @@
 const path = require('path');
 const fs = require('fs');
+const settings = require('../config/settings');
 
 exports.generate = function () {
 
-  var publicFolder = path.join(__dirname, '../../public');
+  var publicFolder = settings.rootFolderAbsolutePath + '/public';
 
   function walk(dir) {
     var results = [];
