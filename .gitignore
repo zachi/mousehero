@@ -4,3 +4,4 @@ data
 public/images
 public/music
 nohup.out
+.env
