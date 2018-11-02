@@ -1,37 +1,35 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
 var app = require('../server/app');
 var debug = require('debug')('mousehero:server');
 var http = require('http');
+var https = require('https');
+var settings = require('../server/config/settings');
+var fs = require('fs');
 require('dotenv').config();
 
-/**
- * Get port from environment and store in Express.
- */
 
 var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 //console.log('port' + port);
-/**
- * Create HTTP server.
- */
-
-
- 
 
 var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+var sslServer = https.createServer({
+  key: fs.readFileSync( settings.rootFolderAbsolutePath + '/server/encryption/server.key'),
+  cert: fs.readFileSync( settings.rootFolderAbsolutePath + '/server/encryption/server.crt')
+}, app);
+
+sslServer.listen(443)
+sslServer.on('error', onError);
+sslServer.on('listening', function() {
+  var addr = sslServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+});
 
 /**
  * Normalize a port into a number, string, or false.

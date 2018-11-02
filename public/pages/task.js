@@ -60,7 +60,7 @@ export default (function () {
   }
 
   function handleFixationMouseOver(e) {
-    console.log('over');
+    //console.log('over');
     cursorOnFixationTimeout = setTimeout(() => {
 
       console.log('enough time on fixation');
@@ -72,7 +72,7 @@ export default (function () {
 
   function handleFixationMouseOut(e) {
     clearTimeout(cursorOnFixationTimeout);
-    console.log('out');
+    //console.log('out');
   }
 
   function registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus) {
