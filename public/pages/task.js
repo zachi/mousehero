@@ -63,7 +63,7 @@ export default (function () {
     //console.log('over');
     cursorOnFixationTimeout = setTimeout(() => {
 
-      console.log('enough time on fixation');
+      //console.log('enough time on fixation');
       mainExecutionLoop();
 
     }, 2000);
