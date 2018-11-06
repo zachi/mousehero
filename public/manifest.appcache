@@ -1,11 +1,12 @@
 CACHE MANIFEST 
-# v1.0.4
+# v1.0.1
 NETWORK: 
 *
 CACHE:
 /external/axios.min.js
 /external/axios.min.map
 /external/handlebars-v4.0.12.js
+/favicon.ico
 /images/Set%20A/result/post/block%2015/block%2015%20matrix%201.jpg
 /images/Set%20A/result/post/block%2015/block%2015%20matrix%2010.jpg
 /images/Set%20A/result/post/block%2015/block%2015%20matrix%2011.jpg
@@ -998,6 +999,7 @@ CACHE:
 /images/Set%20B/result/training/block%209/block%209%20matrix%208.jpg
 /images/Set%20B/result/training/block%209/block%209%20matrix%209.jpg
 /images/Set%20B/result/training/block%209/map.xml
+/images/ajax-loader.gif
 /index.html
 /manifest.appcache
 /models/audio.js
@@ -1029,12 +1031,12 @@ CACHE:
 /music/chopin-7-3-alianello.mp3
 /music/list.json
 /pages/instructions.js
+/pages/loading.js
 /pages/music-selection.js
 /pages/session-form.js
 /pages/task.js
 /pages/the-end.js
 /robots.txt
-/favicon.ico
 /stylesheets/he.css
 /stylesheets/instructions.css
 /stylesheets/music-selection.css
@@ -1043,6 +1045,7 @@ CACHE:
 /stylesheets/task.css
 /templates/fixation.html
 /templates/instructions.html
+/templates/loading.html
 /templates/matrix.html
 /templates/music-selection.html
 /templates/session-form.html
