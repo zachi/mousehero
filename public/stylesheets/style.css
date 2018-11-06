@@ -38,9 +38,15 @@ audio {
   visibility: hidden;
 }
 
+.loading{
+  
+  direction: ltr;
+  margin-top: 17%;
+
+}
 .preloader {
   display: block;
-  margin: 20% auto;
+  margin: 0 auto;
   width: 32px;
   height: 32px;
 }

@@ -11,7 +11,7 @@ export default (function () {
       document.body.appendChild(utils.compileTemplateToDomElement("loading-template", {}));
     },
     hide: function () {
-      var elem = document.querySelector('.preloader');
+      var elem = document.querySelector('.loading');
       elem.parentNode.removeChild(elem);
     }
   }
