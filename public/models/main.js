@@ -23,7 +23,11 @@ onload = function () {
 
 window.applicationCache.addEventListener('noupdate', gotoSessionForm, false);
 window.applicationCache.addEventListener('cached', gotoSessionForm, false);
-
+//when offline, browser still trying to fetch manifest file and throws an error.
+//http://www.kaspertidemann.com/regarding-the-manifest-fetch-failed-error-in-chrome/
+window.applicationCache.onerror = function (e) {
+  gotoSessionForm();
+}
 function gotoSessionForm(){
   
   router.navigate('/session-form');
