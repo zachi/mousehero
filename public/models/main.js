@@ -1,9 +1,11 @@
+import router from "./router.js"
+
 import task from "../pages/task.js"
 import sessionForm from "../pages/session-form.js";
 import instructions from "../pages/instructions.js";
 import theEnd from "../pages/the-end.js";
-import router from "./router.js"
 import musicSelection from "../pages/music-selection.js";
+import loading from "../pages/loading.js";
 
 
 onload = function () {
@@ -13,9 +15,16 @@ onload = function () {
     '/instructions': instructions,
     '/task': task,    
     '/the-end': theEnd,
-    '/music-selection':musicSelection
+    '/music-selection':musicSelection,
+    '/loading': loading
   })
-  router.navigate('/session-form');
-  
+  router.navigate('/loading');
 }
-window.task = task;
+
+window.applicationCache.addEventListener('noupdate', gotoSessionForm, false);
+window.applicationCache.addEventListener('cached', gotoSessionForm, false);
+
+function gotoSessionForm(){
+  
+  router.navigate('/session-form');
+}

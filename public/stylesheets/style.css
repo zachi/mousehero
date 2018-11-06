@@ -11,25 +11,36 @@ body {
 
 body {
 
-  color:#494b4d;
+  color: #494b4d;
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
   text-align: center;
   font-weight: normal;
 }
-h1{
+
+h1 {
   font-size: 2rem;
 }
 
 
-audio{
+audio {
   display: none;
 }
 
-.the-end .instructions__top-text{
-  margin-top:45vh;
+.the-end .instructions__top-text {
+  margin-top: 45vh;
 }
-.the-end button{
-  visibility:hidden;
+
+.the-end button {
+  visibility: hidden;
+}
+
+.preloader {
+  display: block;
+  margin: 20% auto;
+  width: 32px;
+  height: 32px;
 }
