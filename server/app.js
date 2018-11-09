@@ -7,23 +7,20 @@ var app = express();
 var bodyParser = require('body-parser');
 var coordinates = require("./controllers/coordinates");
 var music = require("./controllers/music");
+var database = require('./config/database');
 
 
 app.use(logger('dev'));
-app.use(bodyParser.json({ limit: '50mb' }))
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json({
+  limit: '50mb'
+}))
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.static(path.join(__dirname.slice(0, -('server'.length)), 'public')));
 
 app.post('/coordinates', coordinates.add);
 app.get('/music', music.all);
-
-// app.get("/appcache.manifest", function (req, res) {
-//   res.contentType("text/cache-manifest");
-
-//   var contents = fs.readFileSync(path.join(__dirname, '../../public/appcache.manifest'));
-//   res.end(cachefile.all());
-
-// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -41,5 +38,6 @@ app.use(function (err, req, res, next) {
   res.render('error444');
 });
 
+database.connect();
 
 module.exports = app;

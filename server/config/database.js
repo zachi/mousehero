@@ -1,21 +1,13 @@
 let mongoose = require('mongoose');
-//const server = '127.0.0.1:27017'; // REPLACE WITH YOUR DB SERVER
-const server = 'zachi:Rain1234@ds035683.mlab.com:35683'; // REPLACE WITH YOUR DB SERVER
-const database = 'mousehero';      // REPLACE WITH YOUR DB NAME
+var debug = require('debug')('mousehero:server');
+var settings = require('./settings');
 
-
-class Database {
-  constructor() {
-    this.connect()
-  }
-  connect() {
-    mongoose.connect(`mongodb://${server}/${database}`, { useNewUrlParser: true })
-      .then(() => {
-        console.log('Database connection successful')
-      })
-      .catch(err => {
-        console.error('Database connection error')
-      })
-  }
+exports.connect = function () {
+  mongoose.connect(`mongodb://${settings.db.connection}/${settings.db.name}`, { useNewUrlParser: true })
+    .then(() => {
+      debug('Database connection successful')
+    })
+    .catch(err => {
+      debug('Database connection error')
+    })
 }
-module.exports = new Database()

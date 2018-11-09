@@ -16,3 +16,13 @@ generate music list json file: node -e 'require("./controllers/music").generateF
 
 open chrome without certificate error 
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --ignore-certificate-errors
+
+
+better understanding of npm on client side
+exports.NNN = function () {
+export default (function () {
+  
+integrate browserify 
+integrate debug package on client
+
+

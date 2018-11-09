@@ -35,7 +35,7 @@ audio {
 }
 
 .the-end button {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .loading{

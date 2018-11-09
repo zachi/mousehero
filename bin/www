@@ -4,9 +4,8 @@ var http = require('http');
 var https = require('https');
 var settings = require('../server/config/settings');
 var fs = require('fs');
-require('dotenv').config();
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(settings.port);
 app.set('port', port);
 //console.log('port' + port);
 

@@ -1,12 +1,11 @@
 import router from "./router.js"
-
 import task from "../pages/task.js"
 import sessionForm from "../pages/session-form.js";
 import instructions from "../pages/instructions.js";
 import theEnd from "../pages/the-end.js";
 import musicSelection from "../pages/music-selection.js";
 import loading from "../pages/loading.js";
-
+import db from "./db.js";
 
 onload = function () {
 
@@ -19,7 +18,17 @@ onload = function () {
     '/loading': loading
   })
   router.navigate('/loading');
+  db.init();
+  window.db = db;
+
+//for debugging cached is cancelled
+if(window.applicationCache.status === window.applicationCache.UNCACHED )
+{
+  gotoSessionForm();
 }
+}
+
+
 
 window.applicationCache.addEventListener('noupdate', gotoSessionForm, false);
 window.applicationCache.addEventListener('cached', gotoSessionForm, false);
@@ -28,7 +37,9 @@ window.applicationCache.addEventListener('cached', gotoSessionForm, false);
 window.applicationCache.onerror = function (e) {
   gotoSessionForm();
 }
+
 function gotoSessionForm(){
   
   router.navigate('/session-form');
 }
+
