@@ -1,18 +1,28 @@
-import utils from "../models/utils.js"
-import router from "../models/router.js";
-import settings from "../models/settings.js";
-
+import htmlTemplate from "../models/html-template.js"
 
 export default (function () {
+  var hided = false;
 
+  function show() {
+    
+    htmlTemplate.compileToDomElement("/templates/loading.html", {}, function (element) {
+      if (hided) {
+        hided = false
+        return;
+      }
+      document.body.appendChild(element);
+    });
+  }
+
+  function hide() {
+    hided = true;
+    var elem = document.querySelector('.loading');
+    if (elem)
+      elem.parentNode.removeChild(elem);
+  }
 
   return {
-    show: function () {
-      document.body.appendChild(utils.compileTemplateToDomElement("loading-template", {}));
-    },
-    hide: function () {
-      var elem = document.querySelector('.loading');
-      elem.parentNode.removeChild(elem);
-    }
+    show: show,
+    hide: hide
   }
 })()

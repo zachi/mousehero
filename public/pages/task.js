@@ -4,7 +4,7 @@ import emotionTypes from "../models/emotionTypes.js"
 import matrixCursorEffect from "../models/matrix-cursor-effect.js";
 import audio from "../models/audio.js";
 import settings from "../models/settings.js";
-import utils from "../models/utils.js";
+import htmlTemplate from "../models/html-template.js"
 import router from "../models/router.js";
 
 
@@ -189,31 +189,48 @@ export default (function () {
 
   }
 
+  function loadTemplates(callback){
+    var loadCounter = 0;
+    htmlTemplate.compile("/templates/task.html", null, function(html){
+      document.body.innerHTML =  html;
+      loadCounter++;
+      if(loadCounter == 2)
+      callback();
+    });
+    htmlTemplate.compileToDomElement("/templates/fixation.html", null, function(element){
+      fixationDomElement = element;
+      loadCounter++;
+      if(loadCounter == 2)
+      callback();
+    })
+
+  }
+
   function show() {
-    document.body.innerHTML = utils.compileTemplate("task-template");
-    stageDomElement = document.querySelector('.stage');
+    loadTemplates(function(){
+      stageDomElement = document.querySelector('.stage');
+  
+      if(settings.taskType == 'measurement')
+      {
+        stageDomElement.appendChild(fixationDomElement);
+        fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
+        fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
+      }
+  
+      stageOffset = {
+        "left": stageDomElement.offsetLeft,
+        "top": stageDomElement.offsetTop
+      };
+      matrices = settings.matrices;
+      //preload first matrix image
+      loaAndHideMatrix(matrices[0])
+      mainExecutionLoop();
+  
+      if (settings.taskType == 'training') {
+        audio.play();
+      }
 
-    if(settings.taskType == 'measurement')
-    {
-      fixationDomElement = utils.compileTemplateToDomElement("fixation-template")
-      stageDomElement.appendChild(fixationDomElement);
-      fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
-      fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
-    }
-
-    stageOffset = {
-      "left": stageDomElement.offsetLeft,
-      "top": stageDomElement.offsetTop
-    };
-    matrices = settings.matrices;
-    //preload first matrix image
-    loaAndHideMatrix(matrices[0])
-    mainExecutionLoop();
-
-    if (settings.taskType == 'training') {
-      audio.play();
-    }
-
+    })
   }
 
   return {

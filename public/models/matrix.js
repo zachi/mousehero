@@ -1,4 +1,4 @@
-import utils from "./utils.js"
+import htmlTemplate from "../models/html-template.js"
 import settings from "./settings.js"
 
 
@@ -30,6 +30,8 @@ class matrix {
         //     [{ type: "neutral", gender: "male", name: "13m" }, { type: "aversive", gender: "female", name: "23m" }, { type: "neutral", gender: "female", name: "34m" }, { type: "aversive", gender: "male", name: "43" }],
         //     [{ type: "neutral", gender: "male", name: "14m" }, { type: "aversive", gender: "female", name: "24m" }, { type: "neutral", gender: "female", name: "44m" }, { type: "aversive", gender: "male", name: "44" }]
         // ];
+
+        this.loadElement();
     }
 
     get stimuli() {
@@ -57,16 +59,16 @@ class matrix {
     }
 
     getDomElement() {
-        if (!this.domElement)
-            this.loadElement();
         return this.domElement;
     }
 
     loadElement() {
-        if (!this.domElement)
+        
+      var self = this;
+      if (!this.domElement)
         {    
-            this.domElement = utils.compileTemplateToDomElement("matrix-template", {
-                name: this.imageName
+            htmlTemplate.compileToDomElement("/templates/matrix.html", { name: this.imageName }, function(element){
+              self.domElement = element;
             });
         }
     }

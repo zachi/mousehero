@@ -1,4 +1,4 @@
-import utils from "../models/utils.js"
+import htmlTemplate from "../models/html-template.js"
 import router from "../models/router.js";
 import settings from "../models/settings.js";
 
@@ -34,10 +34,13 @@ export default (function () {
 
   return {
     show: function () {
-      document.body.appendChild(utils.compileTemplateToDomElement("instructions-template", {}));
-      rootElement = document.querySelector('.instructions');
-      rootElement.classList.add('instructions--matrix-first');
-      document.body.addEventListener('keydown', handleSpacebarClick)
+      (htmlTemplate.compileToDomElement("/templates/instructions.html", {}, function(html){
+        document.body.appendChild(html)
+        rootElement = document.querySelector('.instructions');
+        rootElement.classList.add('instructions--matrix-first');
+        document.body.addEventListener('keydown', handleSpacebarClick)
+      }));
+      
 
     },
     hide: function () {

@@ -1,4 +1,4 @@
-import utils from "../models/utils.js"
+import htmlTemplate from "../models/html-template.js"
 import router from "../models/router.js";
 import settings from "../models/settings.js";
 import matrix from "../models/matrix.js";
@@ -82,9 +82,9 @@ export default (function () {
       }
 
       settings.matrices = matrices;
-      
+
       router.navigate(settings.taskType == 'training' ? '/music-selection' : '/instructions');
-      
+
 
     }
     xhr.onerror = function () {
@@ -99,14 +99,17 @@ export default (function () {
   return {
     show: function () {
 
-      document.body.appendChild( utils.compileTemplateToDomElement("session-form", texts));
-      document.body.querySelector('.session-form__continue-button').addEventListener('click', handleContinueClick)
+      htmlTemplate.compileToDomElement("/templates/session-form.html", texts, function (html) {
+        document.body.appendChild(html);
+        document.body.querySelector('.session-form__continue-button').addEventListener('click', handleContinueClick)
+
+      });
 
     },
-    hide:function(){
+    hide: function () {
       document.body.querySelector('.session-form__continue-button').removeEventListener('click', handleContinueClick)
       var elem = document.querySelector('.session-form');
-      elem.parentNode.removeChild(elem);     
+      elem.parentNode.removeChild(elem);
     }
   }
 })()
