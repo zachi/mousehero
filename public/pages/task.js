@@ -17,12 +17,12 @@ export default (function () {
   var currentStimulus = blankStimulus;
   var stageDomElement;
   var currentMatrixIndex = -1;
-  var nextMatrixElement;
+  
   var stageOffset;
   var coordinates = [];
   var fixationDomElement;
   var cursorOnFixationTimeout;
-
+  var startingTaskTimestamp;
   var matrices = [
     // new matrix('matrix.png'),
     // new matrix('matrix.png'),
@@ -85,18 +85,22 @@ export default (function () {
       taskType: settings.taskType,
       x: xCoordinate,
       y: yCoordinate,
-      timestamp: e.timeStamp,
+      timestamp: Date.now() - startingTaskTimestamp,
       duration: 0,
       //location:  { type: 'Point', coordinates: [xCoordinate, yCoordinate] },
       stimulusName: currentStimulus.name,
       stimulusType: currentStimulus.type,
-      stimulusGender: currentStimulus.gender
+      stimulusGender: currentStimulus.gender,
+      matrix: matrices[currentMatrixIndex].imageName
     })
     if (coordinates.length == 1)
       return;
-
     coordinates[coordinates.length - 2].duration =
       coordinates[coordinates.length - 1].timestamp - coordinates[coordinates.length - 2].timestamp;
+
+     
+      //console.log(matrices[currentMatrixIndex].imageName)
+    //console.log(coordinates[coordinates.length - 1].timestamp)
 
     // console.log('calculating duration: ' + coordinates[coordinates.length - 2].duration + '=' + coordinates[coordinates.length - 1].timestamp + ' - ' +
     //   coordinates[coordinates.length - 2].timestamp
@@ -106,7 +110,7 @@ export default (function () {
 
   function loaAndHideMatrix(matrix) {
 
-    nextMatrixElement = matrix.getDomElement();
+    var nextMatrixElement = matrix.getDomElement();
     nextMatrixElement.classList.add('matrix--loaded-hidden');
     stageDomElement.prepend(nextMatrixElement);
 
@@ -124,7 +128,7 @@ export default (function () {
   function showCurrentMatrix() {
 
     removePreviousDisplayedElement();
-    currentStimulus = blankStimulus;
+    currentStimulus = blankStimulus;//reset current hovered face
     showMatrix(matrices[currentMatrixIndex]);
     if (currentMatrixIndex < matrices.length - 1) {
       loaAndHideMatrix(matrices[currentMatrixIndex + 1]);
@@ -133,7 +137,7 @@ export default (function () {
 
   function showMatrix(matrix) {
     stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect)
-    nextMatrixElement.classList.remove('matrix--loaded-hidden');
+    matrix.getDomElement().classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
     handleMatrixCursorEffect(getMatrixCursorInitialPosition())
   }
@@ -208,6 +212,7 @@ export default (function () {
 
   function show() {
     loadTemplates(function(){
+      startingTaskTimestamp = Date.now()
       stageDomElement = document.querySelector('.stage');
   
       if(settings.taskType == 'measurement')

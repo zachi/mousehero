@@ -4,5 +4,8 @@ export default {
   measurementTiming: "timing",
   blockNumber: "block number",
   sessionNumber: "session number",
-  continue:"continue"
+  continue:"continue",
+  sessionsUploadedSuccesfully: "sessions uploaded succesfully",
+  sessionsUploadFailure : "sessions upload failed",
+  password:"password"
 }

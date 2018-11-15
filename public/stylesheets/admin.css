@@ -1,0 +1,24 @@
+.admin__session-upload .preloader {
+  display: none;
+}
+
+.admin__session-upload--uploading .preloader {
+  display: block;
+}
+
+.admin__session-upload--uploading .session-upload__title {
+  display: none;
+}
+
+.mousehero__admin .admin__session-upload{
+  display: none;
+}
+
+.mousehero__admin--successfull-login .admin__login {
+  display: none;
+}
+
+.mousehero__admin--successfull-login .admin__session-upload {
+  display: block;
+}
+

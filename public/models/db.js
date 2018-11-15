@@ -19,7 +19,9 @@ export default (function () {
       db.onerror = function (event) {
         alert("Database error: " + event.target.errorCode);
       };
-      var objectStore = db.createObjectStore("coordinates",{autoIncrement:true});//, {        keyPath: "userId"      });
+      var objectStore = db.createObjectStore("coordinates", {
+        autoIncrement: true
+      }); //, {        keyPath: "userId"      });
 
 
     };
@@ -29,39 +31,56 @@ export default (function () {
     var transaction = db.transaction(["coordinates"], "readwrite");
     // Do something when all the data is added to the database.
     transaction.oncomplete = function (event) {
-      alert("All done!");
+      console.log("coordinates added successfully!");
     };
 
-    transaction.onerror = function (event) {
-      // Don't forget to handle errors!
-    };
-    var t;
+    transaction.onerror = function (event) {};
     var objectStore = transaction.objectStore("coordinates");
     coordinates.forEach(function (coordinate) {
       var request = objectStore.add(coordinate);
-      request.onsuccess = function (event) {
-        t = 0; // event.target.result === customer.ssn;
-      };
     });
   }
 
-  function getCoordinates() {
+  function getCoordinates(callback) {
     var transaction = db.transaction(["coordinates"]);
     var objectStore = transaction.objectStore("coordinates");
-    var request = objectStore.get("ddd");
-    request.onerror = function (event) {
-      // Handle errors!
-    };
-    request.onsuccess = function (event) {
-      // Do something with the request.result!
-      console.log(request.result);
+    objectStore.getAll().onsuccess = function (event) {
+      callback(event.target.result);
     };
   }
+
+  function getNumberOfCoordinates() {
+    var transaction = db.transaction(["coordinates"]);
+    var objectStore = transaction.objectStore("coordinates");
+    var countRequest = objectStore.count();
+    countRequest.onsuccess = function () {
+      console.log(countRequest.result);
+    }
+  }
+
+  function removeAllCoordinates() {
+    // open a read/write db transaction, ready for clearing the data
+    var transaction = db.transaction(["coordinates"], "readwrite");
+  
+    // create an object store on the transaction
+    var objectStore = transaction.objectStore("coordinates");
+  
+    // Make a request to clear all the data out of the object store
+    var objectStoreRequest = objectStore.clear();
+  
+    objectStoreRequest.onsuccess = function(event) {
+      // report the success of our request
+      console.log('all coordinates cleared sxuccessfully.')
+    };
+  }
+
   return {
     init: init,
     addCoordinates,
     addCoordinates,
-    getCoordinates: getCoordinates
+    getCoordinates: getCoordinates,
+    getNumberOfCoordinates: getNumberOfCoordinates,
+    removeAllCoordinates:removeAllCoordinates
     // setPlaylist: setPlaylist,
     // play: play,
     // startInterrupt: startInterrupt,

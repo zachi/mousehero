@@ -3,6 +3,8 @@
 @import "/stylesheets/instructions.css";
 @import "/stylesheets/task.css";
 @import "/stylesheets/music-selection.css";
+@import "/stylesheets/admin.css";
+
 
 html,
 body {
@@ -49,4 +51,51 @@ audio {
   margin: 0 auto;
   width: 32px;
   height: 32px;
+}
+
+.mousehero__centered-panel {
+  width: 450px;
+  margin: 150px auto;
+  padding: 57px;
+
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  direction: ltr;
+  text-align: left;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+}
+
+.mousehero__button {
+  width: calc(100% - 1.5rem);
+  font-size: 20px;
+  color: #fff;
+  background-color: #494b4d;
+  border: 1px solid #494b4d;
+  padding: 6px 12px;
+  line-height: 1.5;
+  border-radius: .25rem;
+  box-sizing: content-box;
+  margin: 2rem 0 0;
+
+}
+
+.mousehero__button:hover {
+  color: #494b4d;
+  background-color: #fff;
+  border: 2px solid #494b4d;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+
+.mousehero__button--disabled, .mousehero__button--disabled:hover{
+  color: #e1e0e0;
+  background-color: #c0bebe;
+  border: 1px solid #bfc2c4;
+  padding: 5px 11px;
+  cursor:not-allowed;
+}
+
+.mousehero__button:focus {
+  outline: none;
 }

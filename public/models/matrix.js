@@ -1,7 +1,6 @@
 import htmlTemplate from "../models/html-template.js"
 import settings from "./settings.js"
 
-
 class matrix {
     constructor(cells) {
         this._stimuli = [
@@ -10,7 +9,9 @@ class matrix {
             [],
             []
         ];
-        this.imageName = settings.imageFolderPath + cells[1].textContent;
+        this._imageName = cells[1].textContent;
+        this._imagePath = settings.imageFolderPath + this._imageName;
+
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
 
@@ -36,6 +37,10 @@ class matrix {
 
     get stimuli() {
         return this._stimuli;
+    }
+
+    get imageName(){
+      return this._imageName;
     }
 
     getStimulusByScreenCoordinates(x, y) {
@@ -67,7 +72,7 @@ class matrix {
       var self = this;
       if (!this.domElement)
         {    
-            htmlTemplate.compileToDomElement("/templates/matrix.html", { name: this.imageName }, function(element){
+            htmlTemplate.compileToDomElement("/templates/matrix.html", { name: this._imagePath }, function(element){
               self.domElement = element;
             });
         }
