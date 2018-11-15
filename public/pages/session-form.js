@@ -12,26 +12,26 @@ export default (function () {
 
   function validate() {
     error('');
-    if (!settings.stimuliSet || !settings.userId || !settings.imagesBlock || !settings.measurementTiming) {
+    if (!settings.stimuliSet || !settings.userId || !settings.blockNumber || !settings.measurementTiming) {
       error('please fill all fields');
       return false;
     }
 
     if (settings.taskType === "training") {
-      if (settings.imagesBlock > 12) {
+      if (settings.blockNumber > 12) {
         error('timing and block number don\'t match.');
         return false;
       }
     }
     if (settings.measurementTiming === "pre") {
-      if (settings.imagesBlock > 14 || settings.imagesBlock < 13) {
+      if (settings.blockNumber > 14 || settings.blockNumber < 13) {
         error('timing and block number don\'t match.');
         return false;
       }
     }
 
     if (settings.measurementTiming === "post") {
-      if (settings.imagesBlock < 15) {
+      if (settings.blockNumber < 15) {
         error('timing and block number don\'t match.');
         return false;
       }
@@ -52,13 +52,13 @@ export default (function () {
 
     settings.taskType = settings.measurementTiming == 'training' ? 'training' : 'measurement';
 
-    //settings.imagesBlock = '15';
-    settings.imagesBlock = document.body.querySelector('select.session-form__block-number').value
+    //settings.blockNumber = '15';
+    settings.blockNumber = document.body.querySelector('select.session-form__block-number').value
 
     if (!validate())
       return false;
 
-    settings.imageFolderPath = `images/Set ${settings.stimuliSet}/result/${settings.measurementTiming}/block ${settings.imagesBlock}/`;
+    settings.imageFolderPath = `images/Set ${settings.stimuliSet}/result/${settings.measurementTiming}/block ${settings.blockNumber}/`;
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();

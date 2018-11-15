@@ -3,6 +3,5 @@ export default {
   set:"סט",
   preOrPost: "לפני/אחרי",
   blockNumber: "מספר בלוק",
-  sessionNumber: "מספר אימון:",
   continue:"המשך"
 }

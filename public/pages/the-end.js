@@ -8,21 +8,14 @@ export default (function () {
   return {
     show: function () {
       htmlTemplate.compile("/templates/the-end.html", {}, function (html) {
-
         document.body.innerHTML = html;
-        document.querySelector('.submit').addEventListener('click', () => {
-          db.addCoordinates(task.getCoordinates())
-          axios.post('/coordinates', task.getCoordinates())
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
-        })
+        db.addCoordinates(task.getCoordinates())
       });
 
+    },
+    hide: function () {
+      var elem = document.querySelector('.the-end');
+      elem.parentNode.removeChild(elem);
     }
   }
 })()

@@ -6,7 +6,7 @@ find proces using port 80: sudo netstat -lpn |grep :80
 
 start website and avoid terminal closed: sudo nohup node ./bin/www null &
 
-discard lo acl git changes: git reset --hard origin/master
+discard local git changes: git reset --hard origin/master
 
 run website with debug messages: sudo DEBUG=mousehero:server npm start
 
@@ -21,7 +21,7 @@ open chrome without certificate error
 better understanding of npm on client side
 exports.NNN = function () {
 export default (function () {
-  
+
 integrate browserify 
 integrate debug package on client
 

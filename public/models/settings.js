@@ -7,12 +7,6 @@ export default (function () {
     get: function() { return _userId; },
     set: function(value) { _userId = value;  }
   });
-
-  var _sessionNumber;
-  Object.defineProperty(self,"sessionNumber",{
-    get: function() { return _sessionNumber; },
-    set: function(value) { _sessionNumber = value;  }
-  });
   
   var _sessionDate;
   Object.defineProperty(self,"sessionDate",{
@@ -44,10 +38,10 @@ export default (function () {
     set: function(value) { _matrices = value;  }
   });
   
-  var _imagesBlock;
-  Object.defineProperty(self,"imagesBlock",{
-    get: function() { return _imagesBlock; },
-    set: function(value) { _imagesBlock = value;  }
+  var _blockNumber;
+  Object.defineProperty(self,"blockNumber",{
+    get: function() { return _blockNumber; },
+    set: function(value) { _blockNumber = value;  }
   });
 
   var _imagesFolderPath;

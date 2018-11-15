@@ -79,7 +79,7 @@ export default (function () {
 
     coordinates.push({
       userId: settings.userId,
-      sessionNumber: settings.sessionNumner,
+      blockNumber: settings.blockNumber,
       sessionDate: settings.sessionDate,
       stimuliSet: settings.stimuliSet,
       taskType: settings.taskType,
@@ -91,7 +91,7 @@ export default (function () {
       stimulusName: currentStimulus.name,
       stimulusType: currentStimulus.type,
       stimulusGender: currentStimulus.gender,
-      matrix: matrices[currentMatrixIndex].imageName
+      image: matrices[currentMatrixIndex].imageName
     })
     if (coordinates.length == 1)
       return;
