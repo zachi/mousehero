@@ -152,8 +152,8 @@ export default (function () {
       };
     }
     return {
-      clientX: document.body.clientWidth / 2,
-      clientY: document.body.clientHeight / 2,
+      clientX: Math.round( document.body.clientWidth / 2),
+      clientY: Math.round( document.body.clientHeight / 2),
       preventDefault: function () {}
     };
 
