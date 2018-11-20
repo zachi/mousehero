@@ -17,7 +17,7 @@ export default (function () {
   var currentStimulus = blankStimulus;
   var stageDomElement;
   var currentMatrixIndex = -1;
-  
+
   var stageOffset;
   var coordinates = [];
   var fixationDomElement;
@@ -98,8 +98,8 @@ export default (function () {
     coordinates[coordinates.length - 2].duration =
       coordinates[coordinates.length - 1].timestamp - coordinates[coordinates.length - 2].timestamp;
 
-     
-      //console.log(matrices[currentMatrixIndex].imageName)
+
+    //console.log(matrices[currentMatrixIndex].imageName)
     //console.log(coordinates[coordinates.length - 1].timestamp)
 
     // console.log('calculating duration: ' + coordinates[coordinates.length - 2].duration + '=' + coordinates[coordinates.length - 1].timestamp + ' - ' +
@@ -116,19 +116,29 @@ export default (function () {
 
   }
 
-  function removePreviousDisplayedElement(){
+  function finalizeDurationOfLastCoordinate(){
+    coordinates[coordinates.length - 1].duration =
+    Date.now() - startingTaskTimestamp - coordinates[coordinates.length - 1].timestamp;
+    console.log('finalizing duration of ' + coordinates[coordinates.length - 1].duration)
+  }
+
+
+  function removePreviousDisplayedElement() {
     var previousMatrix = document.querySelector('.matrix:not(.matrix--loaded-hidden)');
-    if(previousMatrix)
+    if (previousMatrix) {
+
       stageDomElement.removeChild(previousMatrix);
-    if(fixationDomElement && fixationDomElement.style.display !== 'none')
+      finalizeDurationOfLastCoordinate()
+    }
+    if (fixationDomElement && fixationDomElement.style.display !== 'none')
       fixationDomElement.style.display = 'none';
-    
+
   }
 
   function showCurrentMatrix() {
 
     removePreviousDisplayedElement();
-    currentStimulus = blankStimulus;//reset current hovered face
+    currentStimulus = blankStimulus; //reset current hovered face
     showMatrix(matrices[currentMatrixIndex]);
     if (currentMatrixIndex < matrices.length - 1) {
       loaAndHideMatrix(matrices[currentMatrixIndex + 1]);
@@ -152,8 +162,8 @@ export default (function () {
       };
     }
     return {
-      clientX: Math.round( document.body.clientWidth / 2),
-      clientY: Math.round( document.body.clientHeight / 2),
+      clientX: Math.round(document.body.clientWidth / 2),
+      clientY: Math.round(document.body.clientHeight / 2),
       preventDefault: function () {}
     };
 
@@ -165,7 +175,7 @@ export default (function () {
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
     removePreviousDisplayedElement();
     fixationDomElement.style.display = '';
-    
+
   }
 
   function isEndOfTask() {
@@ -179,6 +189,7 @@ export default (function () {
   function mainExecutionLoop() {
 
     if (isEndOfTask()) {
+      finalizeDurationOfLastCoordinate();
       router.navigate("/the-end");
       return;
     }
@@ -193,35 +204,34 @@ export default (function () {
 
   }
 
-  function loadTemplates(callback){
+  function loadTemplates(callback) {
     var loadCounter = 0;
-    htmlTemplate.compile("/templates/task.html", null, function(html){
-      document.body.innerHTML =  html;
+    htmlTemplate.compile("/templates/task.html", null, function (html) {
+      document.body.innerHTML = html;
       loadCounter++;
-      if(loadCounter == 2)
-      callback();
+      if (loadCounter == 2)
+        callback();
     });
-    htmlTemplate.compileToDomElement("/templates/fixation.html", null, function(element){
+    htmlTemplate.compileToDomElement("/templates/fixation.html", null, function (element) {
       fixationDomElement = element;
       loadCounter++;
-      if(loadCounter == 2)
-      callback();
+      if (loadCounter == 2)
+        callback();
     })
 
   }
 
   function show() {
-    loadTemplates(function(){
+    loadTemplates(function () {
       startingTaskTimestamp = Date.now()
       stageDomElement = document.querySelector('.stage');
-  
-      if(settings.taskType == 'measurement')
-      {
+
+      if (settings.taskType == 'measurement') {
         stageDomElement.appendChild(fixationDomElement);
         fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
         fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
       }
-  
+
       stageOffset = {
         "left": stageDomElement.offsetLeft,
         "top": stageDomElement.offsetTop
@@ -230,7 +240,7 @@ export default (function () {
       //preload first matrix image
       loaAndHideMatrix(matrices[0])
       mainExecutionLoop();
-  
+
       if (settings.taskType == 'training') {
         audio.play();
       }

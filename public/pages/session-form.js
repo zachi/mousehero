@@ -70,21 +70,18 @@ export default (function () {
     xhr.onload = function () {
       //dump(xhr.responseXML.documentElement.nodeName);
       var rows = xhr.responseXML.documentElement.getElementsByTagName('Row');
-      var faceIndex = 5;
-      var imageIndex = 4;
       var matrices = [];
-      for (let imageIndex = 1; imageIndex < 4; imageIndex++) {
-        //result.Workbook.Worksheet[0].Table[0].Row[imageIndex].Cell[faceIndex].Data[0]
+      var numberOfTrials = rows.length;
+      if(settings.numberOfTrialsOverride)
+        numberOfTrials = settings.numberOfTrialsOverride;
+      for (let imageIndex = 1; imageIndex < numberOfTrials; imageIndex++) {
         matrices.push(
           new matrix(rows[imageIndex].children)
         )
       }
 
       settings.matrices = matrices;
-
       router.navigate(settings.taskType == 'training' ? '/music-selection' : '/instructions');
-
-
     }
     xhr.onerror = function () {
       dump("Error while getting XML.");

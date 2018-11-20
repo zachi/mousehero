@@ -7,7 +7,8 @@ let settingsSchema = new mongoose.Schema({
   }],
   matrixBlurIntensity: Number,
   matrixDisplayDurationTraining: Number,
-  matrixDisplayDurationMeasurement: Number
+  matrixDisplayDurationMeasurement: Number,
+  numberOfTrialsOverride: Number
 
 }, { collection: 'settings' })
 module.exports = mongoose.model('Settings', settingsSchema)
