@@ -1,6 +1,6 @@
 <div class="matrix">
-  <div class="background-image" style="background-image: url('{{name}}');"></div>
-  <div class="cursor-circle cursor-circle__inner" style="background-image: url('{{name}}');"></div>
-  <div class="cursor-circle cursor-circle__middle" style="background-image: url('{{name}}');"></div>
-  <div class="cursor-circle cursor-circle__outer" style="background-image: url('{{name}}');"></div>
+  <div class="background-image" style="background-image: url('{{name}}'); filter: blur({{blurIntensity}}px)"></div>
+  {{#magnifierLayers}}
+    <div class="cursor-circle" style="width:{{diameter}}px; height: {{diameter}}px; filter: blur({{blurIntensity}}px); background-image: url('{{../name}}'); z-index:{{zIndex}}"></div>
+  {{/magnifierLayers}}
 </div>

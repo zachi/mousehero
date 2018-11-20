@@ -1,5 +1,5 @@
 CACHE MANIFEST 
-# v1.0.1
+# v1.0.2
 NETWORK: 
 *
 CACHE:
@@ -1002,7 +1002,9 @@ CACHE:
 /images/ajax-loader.gif
 /index.html
 /models/audio.js
+/models/db.js
 /models/emotionTypes.js
+/models/html-template.js
 /models/main.js
 /models/matrices.js
 /models/matrix-cursor-effect.js
@@ -1011,7 +1013,6 @@ CACHE:
 /models/settings.js
 /models/texts.he.js
 /models/texts.js
-/models/html-template.js
 /music/Adele_1%20copy.mp3
 /music/Adele_1.mp3
 /music/Adele_2%20copy.mp3
@@ -1029,6 +1030,7 @@ CACHE:
 /music/chopin-7-3-alianello%20copy.mp3
 /music/chopin-7-3-alianello.mp3
 /music/list.json
+/pages/admin.js
 /pages/instructions.js
 /pages/loading.js
 /pages/music-selection.js
@@ -1036,12 +1038,14 @@ CACHE:
 /pages/task.js
 /pages/the-end.js
 /robots.txt
+/stylesheets/admin.css
 /stylesheets/he.css
 /stylesheets/instructions.css
 /stylesheets/music-selection.css
 /stylesheets/session-form.css
 /stylesheets/style.css
 /stylesheets/task.css
+/templates/admin.html
 /templates/fixation.html
 /templates/instructions.html
 /templates/loading.html

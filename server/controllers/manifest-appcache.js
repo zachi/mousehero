@@ -1,17 +1,17 @@
 var cachefile = require("../models/manifest-appcache")
 var fs = require('fs');
-const settings = require('../config/settings');
+const config = require('../config/config');
 
 module.exports = (function () {
 
   return {
     generateFile: function () {
       var res = cachefile.generate();
-      fs.writeFile( settings.rootFolderAbsolutePath + '/public/manifest.appcache', res, function (err) {
+      fs.writeFile( config.rootFolderAbsolutePath + '/public/manifest.appcache', res, function (err) {
         if (err) {
           return console.log(err);
         }
-        console.log("The file was saved!");
+        console.log("file was updated successfully!");
       });
     }
 

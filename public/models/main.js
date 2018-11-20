@@ -7,6 +7,7 @@ import musicSelection from "../pages/music-selection.js";
 import loading from "../pages/loading.js";
 import admin from "../pages/admin.js";
 import db from "./db.js";
+import settings from "./settings.js";
 
 onload = function () {
 
@@ -22,8 +23,8 @@ onload = function () {
   router.navigate('/loading');
 
   db.init();
-  window.db = db;
-
+  //window.db = db;
+  settings.initDBFields();
   //for debugging cached is cancelled
   if (window.applicationCache.status === window.applicationCache.UNCACHED) {
     gotoSessionForm();
@@ -32,6 +33,8 @@ onload = function () {
 
 window.applicationCache.addEventListener('noupdate', gotoSessionForm, false);
 window.applicationCache.addEventListener('cached', gotoSessionForm, false);
+window.applicationCache.addEventListener('updateready', gotoSessionForm, false);
+
 //when offline, browser still trying to fetch manifest file and throws an error.
 //http://www.kaspertidemann.com/regarding-the-manifest-fetch-failed-error-in-chrome/
 window.applicationCache.onerror = function (e) {

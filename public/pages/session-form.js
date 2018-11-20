@@ -62,8 +62,7 @@ export default (function () {
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();
-    //settings.matrixDisplayDuration = 20000;
-    settings.matrixDisplayDuration = settings.taskType == 'training' ? 24000 : 6000;
+    settings.matrixDisplayDuration = settings.taskType == 'training' ? settings.matrixDisplayDurationTraining : settings.matrixDisplayDurationMeasurement;
 
     var mapUrl = settings.imageFolderPath + `map.xml`;
     document.documentElement.webkitRequestFullscreen();
@@ -74,7 +73,7 @@ export default (function () {
       var faceIndex = 5;
       var imageIndex = 4;
       var matrices = [];
-      for (let imageIndex = 1; imageIndex < rows.length; imageIndex++) {
+      for (let imageIndex = 1; imageIndex < 4; imageIndex++) {
         //result.Workbook.Worksheet[0].Table[0].Row[imageIndex].Cell[faceIndex].Data[0]
         matrices.push(
           new matrix(rows[imageIndex].children)

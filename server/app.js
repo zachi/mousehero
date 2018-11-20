@@ -6,6 +6,7 @@ var logger = require('morgan');
 var app = express();
 var bodyParser = require('body-parser');
 var coordinates = require("./controllers/coordinates");
+var settings = require("./controllers/settings");
 var music = require("./controllers/music");
 var database = require('./config/database');
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname.slice(0, -('server'.length)), 'public
 
 app.post('/coordinates', coordinates.add);
 app.get('/music', music.all);
+app.get('/settings', settings.get);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

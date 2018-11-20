@@ -2,10 +2,10 @@ var app = require('../server/app');
 var debug = require('debug')('mousehero:server');
 var http = require('http');
 var https = require('https');
-var settings = require('../server/config/settings');
+var config = require('../server/config/config');
 var fs = require('fs');
 
-var port = normalizePort(settings.port);
+var port = normalizePort(config.port);
 app.set('port', port);
 //console.log('port' + port);
 
@@ -15,8 +15,8 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 var sslServer = https.createServer({
-  key: fs.readFileSync( settings.rootFolderAbsolutePath + '/server/encryption/server.key'),
-  cert: fs.readFileSync( settings.rootFolderAbsolutePath + '/server/encryption/server.crt')
+  key: fs.readFileSync( config.rootFolderAbsolutePath + '/server/encryption/server.key'),
+  cert: fs.readFileSync( config.rootFolderAbsolutePath + '/server/encryption/server.crt')
 }, app);
 
 sslServer.listen(443)

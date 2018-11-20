@@ -1,42 +1,33 @@
 //import matrix from "./matrix.js";
 
 export default (function () {
-  var cursorCircleInner;
-  var cursorCircleOuter;
-  var cursorCircleMiddle;
-
-  var cursorInnerRadius = 50;
-  var cursorOuterRadius = 100;
-  var cursorMiddleRadius = 60;
 
   var imageSide = 900;
-function updateCursor(upX, upY, e){
+  var magnifierLayers = [];
 
-  cursorCircleInner.style.left = (upX - cursorInnerRadius) + 'px';
-    cursorCircleInner.style.top = (upY - cursorInnerRadius) + 'px';
-    cursorCircleInner.style.backgroundPositionX = (imageSide + cursorInnerRadius - upX) + 'px';
-    cursorCircleInner.style.backgroundPositionY = (imageSide + cursorInnerRadius - upY) + 'px';
+  function updateCursor(upX, upY, e) {
 
-    cursorCircleOuter.style.left = (upX - cursorOuterRadius) + 'px';
-    cursorCircleOuter.style.top = (upY - cursorOuterRadius) + 'px';
-    cursorCircleOuter.style.backgroundPositionX = (imageSide + cursorOuterRadius - upX) + 'px';
-    cursorCircleOuter.style.backgroundPositionY = (imageSide + cursorOuterRadius - upY) + 'px';
-    
-    cursorCircleMiddle.style.left = (upX - cursorMiddleRadius) + 'px';
-    cursorCircleMiddle.style.top = (upY - cursorMiddleRadius) + 'px';
-    cursorCircleMiddle.style.backgroundPositionX = (imageSide + cursorMiddleRadius - upX) + 'px';
-    cursorCircleMiddle.style.backgroundPositionY = (imageSide + cursorMiddleRadius - upY) + 'px';
+    for (let index = 0; index < magnifierLayers.length; index++) {
+      var layer = magnifierLayers[index];
+      layer.element.style.left = (upX - layer.radius) + 'px';
+      layer.element.style.top = (upY - layer.radius) + 'px';
+      layer.element.style.backgroundPositionX = (imageSide + layer.radius - upX) + 'px';
+      layer.element.style.backgroundPositionY = (imageSide + layer.radius - upY) + 'px';
+    }
+  }
+  return {
 
-
-}
-  return{
-
-    init:function(){
-      cursorCircleInner = document.querySelector('.stage .cursor-circle__inner');
-      cursorCircleOuter = document.querySelector('.stage .cursor-circle__outer');
-      cursorCircleMiddle = document.querySelector('.stage .cursor-circle__middle');
-
+    init: function () {
+      magnifierLayers = [];
+      var elements = document.querySelectorAll('.stage .cursor-circle');
+      for (let index = 0; index < elements.length; index++) {
+        const element = elements[index];
+        magnifierLayers.push({
+          element: element,
+          radius: parseInt(element.style.width, 10) / 2
+        })
+      }
     },
-    updateCursor:updateCursor
+    updateCursor: updateCursor
   }
 })();

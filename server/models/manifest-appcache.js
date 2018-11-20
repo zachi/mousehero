@@ -1,10 +1,10 @@
 const path = require('path');
 const fs = require('fs');
-const settings = require('../config/settings');
+const config = require('../config/config');
 
 exports.generate = function () {
 
-  var publicFolder = settings.rootFolderAbsolutePath + '/public';
+  var publicFolder = config.rootFolderAbsolutePath + '/public';
 
   function walk(dir) {
     var results = [];
@@ -32,7 +32,7 @@ exports.generate = function () {
   var files = walk(publicFolder);
   return [
           'CACHE MANIFEST ',
-          '# v1.0.1',
+          '# v1.0.2',
           'NETWORK: ',
           '*',
           'CACHE:'

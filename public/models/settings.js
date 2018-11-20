@@ -56,6 +56,17 @@ export default (function () {
     set: function(value) { _measurementTyming = value;  }
   });
 
+  self.initDBFields = function(){
+    axios.get('/settings')
+    .then(function (response) {
+      delete response.data[0]._id;
+      Object.assign(self, response.data[0]);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
   
   return self;
 })();
