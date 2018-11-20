@@ -116,9 +116,9 @@ export default (function () {
 
   }
 
-  function finalizeDurationOfLastCoordinate(){
+  function finalizeDurationOfLastCoordinate() {
     coordinates[coordinates.length - 1].duration =
-    Date.now() - startingTaskTimestamp - coordinates[coordinates.length - 1].timestamp;
+      Date.now() - startingTaskTimestamp - coordinates[coordinates.length - 1].timestamp;
     console.log('finalizing duration of ' + coordinates[coordinates.length - 1].duration)
   }
 
@@ -146,7 +146,9 @@ export default (function () {
   }
 
   function showMatrix(matrix) {
-    stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect)
+    stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect);
+    stageDomElement.addEventListener('mouseleave', handleCursorOutOfMatrix);
+
     matrix.getDomElement().classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
     handleMatrixCursorEffect(getMatrixCursorInitialPosition())
@@ -169,9 +171,18 @@ export default (function () {
 
   }
 
+  function handleCursorOutOfMatrix(){
+    registerCoordinates(null, -1, -1, {
+      name: "outOfMatrix",
+      stimulusType: "",
+      stimulusGender: "",
+    });
+  }
   function showFixation() {
 
-    stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect)
+    stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect);
+    stageDomElement.removeEventListener('mouseleave', handleCursorOutOfMatrix);
+
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
     removePreviousDisplayedElement();
     fixationDomElement.style.display = '';
