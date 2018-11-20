@@ -32,7 +32,7 @@ exports.generate = function () {
   var files = walk(publicFolder);
   return [
           'CACHE MANIFEST ',
-          '# v1.0.2',
+          '# v1.0.3',
           'NETWORK: ',
           '*',
           'CACHE:'
