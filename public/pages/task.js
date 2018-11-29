@@ -23,18 +23,7 @@ export default (function () {
   var fixationDomElement;
   var cursorOnFixationTimeout;
   var startingTaskTimestamp;
-  var matrices = [
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),  
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png'),
-    // new matrix('matrix.png')
-  ];
+  var matrices = [];
 
   function handleMatrixCursorEffect(e) {
     //console.log('x:' + e.clientX + ' y:' + e.clientY);
@@ -158,7 +147,7 @@ export default (function () {
   function getMatrixCursorInitialPosition() {
     if (settings.taskType == 'training' && coordinates.length > 0) {
       var lastPosition = coordinates[coordinates.length - 1];
-      if(lastPosition.stimulusName === "outOfMatrix" )
+      if (lastPosition.stimulusName === "outOfMatrix")
         lastPosition = coordinates[coordinates.length - 2];
       return {
         clientX: lastPosition.x + stageOffset.left,
@@ -174,8 +163,13 @@ export default (function () {
 
   }
 
-  function handleCursorOutOfMatrix(){
-    audio.startInterrupt();
+  function audioStartInterrupt() {
+    if (settings.taskType == 'training')
+      audio.startInterrupt();
+  }
+
+  function handleCursorOutOfMatrix() {
+    audioStartInterrupt();
     currentStimulus = blankStimulus;
     registerCoordinates(null, -1, -1, {
       name: "outOfMatrix",
@@ -183,6 +177,7 @@ export default (function () {
       stimulusGender: "",
     });
   }
+
   function showFixation() {
 
     stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect);

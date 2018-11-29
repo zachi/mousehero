@@ -11,6 +11,7 @@ class matrix {
     ];
     this._imageName = cells[1].textContent;
     this._imagePath = settings.imageFolderPath + this._imageName;
+    this._simulusMarginSize = 10;
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
@@ -57,7 +58,22 @@ class matrix {
         "name": "blank"
       };
     try {
-      return this._stimuli[matrixIndexY][matrixIndexX];
+      var stimulus = this._stimuli[matrixIndexY][matrixIndexX];
+      var xIndexWithinStim = x % 225;
+      if (xIndexWithinStim < this._simulusMarginSize || xIndexWithinStim > (225 - this._simulusMarginSize))
+        return {
+          "type": stimulus.type,
+          "name": stimulus.name + '_margin'
+        };
+      var yIndexWithinStim = y % 225;
+      if (yIndexWithinStim < this._simulusMarginSize || yIndexWithinStim > (225 - this._simulusMarginSize))
+        return {
+          "type": stimulus.type,
+          "name": stimulus.name + '_margin'
+        };
+
+      return stimulus;
+
     } catch {
       debugger;
     }
