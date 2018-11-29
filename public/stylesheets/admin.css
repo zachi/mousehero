@@ -22,3 +22,7 @@
   display: block;
 }
 
+.session-upload__message{
+  text-align: center;
+  color: red;
+}

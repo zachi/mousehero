@@ -7,12 +7,13 @@ export default (function () {
 
   var uploadButton;
   var sessionUploadPanel;
+
   function error(msg) {
     document.body.querySelector('.session-form__error').innerText = msg;
   }
 
   function handleUploadClick(e) {
-    
+
     if (uploadButton.classList.contains('mousehero__button--disabled'))
       return;
     sessionUploadPanel.classList.add('admin__session-upload--uploading');
@@ -24,7 +25,7 @@ export default (function () {
           sessionUploadPanel.classList.remove('admin__session-upload--uploading');
           document.body.querySelector('.session-upload__title').innerText = response.data.success ? texts.sessionsUploadedSuccesfully : texts.sessionsUploadFailure;
           document.body.querySelector('.session-upload__title').style.color = response.data.success ? 'green' : 'red';
-          if(response.data.success)
+          if (response.data.success)
             db.removeAllCoordinates();
           console.log(response);
         })
@@ -38,9 +39,8 @@ export default (function () {
     })
   }
 
-  function handleLoginClick(){
-    if(document.body.querySelector('.admin-login__password').value === 'omer')
-    {
+  function handleLoginClick() {
+    if (document.body.querySelector('.admin-login__password').value === 'omer') {
       document.body.querySelector('.mousehero__admin').classList.add('mousehero__admin--successfull-login');
     }
   }
@@ -49,13 +49,17 @@ export default (function () {
 
     htmlTemplate.compileToDomElement("/templates/admin.html", texts, function (html) {
       document.body.appendChild(html);
-      uploadButton = document.body.querySelector('.session-upload__button');
       sessionUploadPanel = document.body.querySelector('.admin__session-upload');
+      uploadButton = document.body.querySelector('.session-upload__button');
+      db.getNumberOfCoordinates(function (numberOfCoordinates) {
+        if (numberOfCoordinates === 0) {
+          document.body.querySelector('.session-upload__message').innerText = 'no sessions for uploading';
+          uploadButton.classList.add('mousehero__button--disabled');
+        }
+      });
       uploadButton.addEventListener('click', handleUploadClick)
-
-
       document.body.querySelector('.admin-login__button').addEventListener('click', handleLoginClick)
-      
+
     });
 
   }

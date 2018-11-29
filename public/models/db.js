@@ -1,4 +1,4 @@
-export default (function () {
+var db = (function () {
   var db;
 
   function init() {
@@ -49,12 +49,12 @@ export default (function () {
     };
   }
 
-  function getNumberOfCoordinates() {
+  function getNumberOfCoordinates(callback) {
     var transaction = db.transaction(["coordinates"]);
     var objectStore = transaction.objectStore("coordinates");
     var countRequest = objectStore.count();
     countRequest.onsuccess = function () {
-      console.log(countRequest.result);
+      callback(countRequest.result);
     }
   }
 
@@ -87,3 +87,5 @@ export default (function () {
     // stopInterrupt: stopInterrupt
   }
 })();
+window.db = db;
+export default db;
