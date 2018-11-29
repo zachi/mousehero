@@ -149,6 +149,7 @@ export default (function () {
     stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect);
     stageDomElement.addEventListener('mouseleave', handleCursorOutOfMatrix);
 
+
     matrix.getDomElement().classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
     handleMatrixCursorEffect(getMatrixCursorInitialPosition())
@@ -157,6 +158,8 @@ export default (function () {
   function getMatrixCursorInitialPosition() {
     if (settings.taskType == 'training' && coordinates.length > 0) {
       var lastPosition = coordinates[coordinates.length - 1];
+      if(lastPosition.stimulusName === "outOfMatrix" )
+        lastPosition = coordinates[coordinates.length - 2];
       return {
         clientX: lastPosition.x + stageOffset.left,
         clientY: lastPosition.y + stageOffset.top,
@@ -172,6 +175,8 @@ export default (function () {
   }
 
   function handleCursorOutOfMatrix(){
+    audio.startInterrupt();
+    currentStimulus = blankStimulus;
     registerCoordinates(null, -1, -1, {
       name: "outOfMatrix",
       stimulusType: "",
