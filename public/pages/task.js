@@ -82,11 +82,8 @@ export default (function () {
       stimulusGender: currentStimulus.gender,
       image: matrices[currentMatrixIndex].imageName
     })
-    if (coordinates.length == 1)
-      return;
-    coordinates[coordinates.length - 2].duration =
-      coordinates[coordinates.length - 1].timestamp - coordinates[coordinates.length - 2].timestamp;
-
+    
+    setDurationOfPreviousCoordinate( coordinates[coordinates.length - 1].timestamp);
 
     //console.log(matrices[currentMatrixIndex].imageName)
     //console.log(coordinates[coordinates.length - 1].timestamp)
@@ -180,12 +177,20 @@ export default (function () {
 
   function showFixation() {
 
+    setDurationOfPreviousCoordinate( Date.now() - startingTaskTimestamp );
     stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect);
     stageDomElement.removeEventListener('mouseleave', handleCursorOutOfMatrix);
 
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
     removePreviousDisplayedElement();
     fixationDomElement.style.display = '';
+
+  }
+
+  function setDurationOfPreviousCoordinate(timestamp){
+    if (coordinates.length < 2 || coordinates[coordinates.length - 2].duration)
+      return;
+    coordinates[coordinates.length - 2].duration = timestamp - coordinates[coordinates.length - 2].timestamp;
 
   }
 
