@@ -10,7 +10,7 @@ export default (function () {
   }
   return {
     show: function () {
-      axios.get('/music/list.json')
+      axios.get('/music2')
       .then(function (response) {
         htmlTemplate.compileToDomElement("/templates/music-selection.html", {playlists:response.data}, function (element) {
           document.body.appendChild( element );

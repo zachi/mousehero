@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 app.use(express.static(path.join(__dirname.slice(0, -('server'.length)), 'public')));
 
 app.post('/coordinates', coordinates.add);
-app.get('/music', music.all);
+app.get('/music2', music.all);
 app.get('/settings', settings.get);
 
 // catch 404 and forward to error handler
