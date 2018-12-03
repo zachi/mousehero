@@ -1,5 +1,8 @@
 
 
+.session-form.mousehero__centered-panel {
+  margin:100px auto;
+}
 .session-form__label,
 .session-form__text,
 .session-form__select {

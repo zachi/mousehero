@@ -6,5 +6,6 @@ export default {
   continue:"continue",
   sessionsUploadedSuccesfully: "sessions uploaded succesfully",
   sessionsUploadFailure : "sessions upload failed",
-  password:"password"
+  password: "password",
+  trialDuration: "trial duration (ms)"
 }

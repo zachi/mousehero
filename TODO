@@ -1,0 +1,8 @@
+
+
+better understanding of npm on client side
+exports.NNN = function () {
+export default (function () {
+
+integrate browserify 
+integrate debug package on client

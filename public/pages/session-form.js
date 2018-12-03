@@ -37,6 +37,16 @@ export default (function () {
       }
     }
 
+
+    if (isNaN(settings.matrixDisplayDuration)) {
+      error('trial duration must be a number.');
+      return false;
+    }
+
+    settings.matrixDisplayDuration = parseInt(settings.matrixDisplayDuration);
+
+
+
     return true;
   }
 
@@ -55,6 +65,8 @@ export default (function () {
     //settings.blockNumber = '15';
     settings.blockNumber = document.body.querySelector('select.session-form__block-number').value
 
+    settings.matrixDisplayDuration = document.body.querySelector('.session-form__trial-duration').value;
+
     if (!validate())
       return false;
 
@@ -62,7 +74,6 @@ export default (function () {
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();
-    settings.matrixDisplayDuration = settings.taskType == 'training' ? settings.matrixDisplayDurationTraining : settings.matrixDisplayDurationMeasurement;
 
     var mapUrl = settings.imageFolderPath + `map.xml`;
     document.documentElement.webkitRequestFullscreen();
@@ -72,7 +83,7 @@ export default (function () {
       var rows = xhr.responseXML.documentElement.getElementsByTagName('Row');
       var matrices = [];
       var numberOfTrials = rows.length;
-      if(settings.numberOfTrialsOverride)
+      if (settings.numberOfTrialsOverride)
         numberOfTrials = settings.numberOfTrialsOverride;
       for (let imageIndex = 1; imageIndex < numberOfTrials; imageIndex++) {
         matrices.push(

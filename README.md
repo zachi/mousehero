@@ -17,12 +17,5 @@ generate music list json file: node -e 'require("./controllers/music").generateF
 open chrome without certificate error 
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --ignore-certificate-errors
 
-
-better understanding of npm on client side
-exports.NNN = function () {
-export default (function () {
-
-integrate browserify 
-integrate debug package on client
-
-
+connect to mlab from command line(shell connection to mlab)
+mongo ds035683.mlab.com:35683/mousehero -u zachi -p Rain1234 
