@@ -12,6 +12,7 @@ class matrix {
     this._imageName = cells[1].textContent;
     this._imagePath = settings.imageFolderPath + this._imageName;
     this._simulusMarginSize = 10;
+    this.stimulusSideLength = settings.imageSideLength/4;
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
@@ -50,8 +51,8 @@ class matrix {
         "type": "blank",
         "name": "blank"
       };
-    var matrixIndexX = Math.floor(x / 225);
-    var matrixIndexY = Math.floor(y / 225);
+    var matrixIndexX = Math.floor(x / this.stimulusSideLength);
+    var matrixIndexY = Math.floor(y / this.stimulusSideLength);
     if (matrixIndexX >= this._stimuli.length || matrixIndexY >= this._stimuli.length)
       return {
         "type": "blank",
@@ -59,14 +60,14 @@ class matrix {
       };
     try {
       var stimulus = this._stimuli[matrixIndexY][matrixIndexX];
-      var xIndexWithinStim = x % 225;
-      if (xIndexWithinStim < this._simulusMarginSize || xIndexWithinStim > (225 - this._simulusMarginSize))
+      var xIndexWithinStim = x % this.stimulusSideLength;
+      if (xIndexWithinStim < this._simulusMarginSize || xIndexWithinStim > (this.stimulusSideLength - this._simulusMarginSize))
         return {
           "type": stimulus.type,
           "name": stimulus.name + '_margin'
         };
-      var yIndexWithinStim = y % 225;
-      if (yIndexWithinStim < this._simulusMarginSize || yIndexWithinStim > (225 - this._simulusMarginSize))
+      var yIndexWithinStim = y % this.stimulusSideLength;
+      if (yIndexWithinStim < this._simulusMarginSize || yIndexWithinStim > (this.stimulusSideLength - this._simulusMarginSize))
         return {
           "type": stimulus.type,
           "name": stimulus.name + '_margin'

@@ -1,8 +1,7 @@
-//import matrix from "./matrix.js";
+import settings from "./settings.js";
 
 export default (function () {
 
-  var imageSide = 900;
   var magnifierLayers = [];
 
   function updateCursor(upX, upY, e) {
@@ -11,8 +10,8 @@ export default (function () {
       var layer = magnifierLayers[index];
       layer.element.style.left = (upX - layer.radius) + 'px';
       layer.element.style.top = (upY - layer.radius) + 'px';
-      layer.element.style.backgroundPositionX = (imageSide + layer.radius - upX) + 'px';
-      layer.element.style.backgroundPositionY = (imageSide + layer.radius - upY) + 'px';
+      layer.element.style.backgroundPositionX = (settings.imageSideLength + layer.radius - upX) + 'px';
+      layer.element.style.backgroundPositionY = (settings.imageSideLength + layer.radius - upY) + 'px';
     }
   }
   return {

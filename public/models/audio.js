@@ -28,6 +28,11 @@ export default (function () {
     audioDomElement.src = playlistName;
   }
 
+  function stop(audio) {
+    audioDomElement.pause();
+    audioDomElement.currentTime = 0;
+  }
+
   function play() {
     audioDomElement.play();
   }
@@ -35,6 +40,7 @@ export default (function () {
     init: init,
     setPlaylist: setPlaylist,
     play: play,
+    stop, stop,
     startInterrupt: startInterrupt,
     stopInterrupt: stopInterrupt
   }

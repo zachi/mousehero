@@ -74,7 +74,7 @@ export default (function () {
     //var mapUrl = __dirname + '/../public/images/Set A/result/post/block 15/map.xml';
 
     settings.sessionDate = new Date();
-
+    settings.imageSideLength = 950;
     var mapUrl = settings.imageFolderPath + `map.xml`;
     document.documentElement.webkitRequestFullscreen();
     var xhr = new XMLHttpRequest();

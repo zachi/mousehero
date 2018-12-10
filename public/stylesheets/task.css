@@ -1,3 +1,7 @@
+:root {
+  --image-side-length: 950px; 
+}
+
 .task{
   display: flex;
   align-items: center;
@@ -7,16 +11,18 @@
 }
 .stage {
   position: relative;
-  width: 900px;
-  height: 900px;
+  width: var(--image-side-length);
+  height: var(--image-side-length);
   margin: auto;
   overflow: hidden;
 }
 
 .background-image {
-  width: 900px;
-  height: 900px;
+  width: var(--image-side-length);
+  height: var(--image-side-length);
   position: absolute;
+  background-repeat: no-repeat; 
+  background-size: cover;
 }
 
 

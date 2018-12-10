@@ -76,8 +76,7 @@ var db = (function () {
 
   return {
     init: init,
-    addCoordinates,
-    addCoordinates,
+    addCoordinates: addCoordinates,
     getCoordinates: getCoordinates,
     getNumberOfCoordinates: getNumberOfCoordinates,
     removeAllCoordinates:removeAllCoordinates

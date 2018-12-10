@@ -56,6 +56,12 @@ export default (function () {
     set: function(value) { _measurementTyming = value;  }
   });
 
+  var _imageSideLength;
+  Object.defineProperty(self,"imageSideLength",{
+    get: function() { return _imageSideLength; },
+    set: function(value) { _imageSideLength = value;  }
+  });
+
   self.initDBFields = function(){
     axios.get('/settings')
     .then(function (response) {
