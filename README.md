@@ -1,6 +1,6 @@
 ************ Command line commands**************
 
-connect to AWS server: ssh -i "/Users/zachi/Documents/ssh/mousehero.pem" ec2-user@ec2-13-58-126-38.us-east-2.compute.amazonaws.com
+connect to AWS server: ssh -i "/Users/zachi/Documents/ssh/mmrt.pem" ec2-user@ec2-18-216-65-204.us-east-2.compute.amazonaws.com
 
 find proces using port 80: sudo netstat -lpn |grep :80
 
