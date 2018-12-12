@@ -14,7 +14,7 @@ generate manifest.appcache file: node -e 'require("./server/controllers/manifest
 
 generate music list json file: node -e 'require("./controllers/music").generateFile()'
 
-open chrome without certificate error 
+open chrome without certificate error ** works only when no instance of chrome exists
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --ignore-certificate-errors
 
 connect to mlab from command line(shell connection to mlab)
