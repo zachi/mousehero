@@ -30,12 +30,13 @@ exports.generate = function () {
   }
 
   var files = walk(publicFolder);
+  
+  files.push('/music2');
   files.push('/settings');
-  files.push('/music');
 
   return [
           'CACHE MANIFEST ',
-          '# v1.0.4',
+          '# v1.0.5',
           'NETWORK: ',
           '*',
           'CACHE:'
