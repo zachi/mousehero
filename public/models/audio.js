@@ -29,6 +29,8 @@ export default (function () {
   }
 
   function stop(audio) {
+    if(!audioDomElement)
+      return;
     audioDomElement.pause();
     audioDomElement.currentTime = 0;
   }
