@@ -1,6 +1,7 @@
 # Dependency directory
 node_modules
 data
+public/images/900X900
 public/images/Set A
 public/images/Set B
 public/music

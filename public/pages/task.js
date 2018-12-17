@@ -38,7 +38,7 @@ export default (function () {
     if (settings.taskType === 'training' &&
       newStimulus.name !== currentStimulus.name &&
       newStimulus.type !== currentStimulus.type) {
-      console.log('type change');
+      //console.log('type change');
       if (newStimulus.type === emotionTypes.avarsive)
         audio.startInterrupt();
       else
@@ -105,7 +105,7 @@ export default (function () {
   function finalizeDurationOfLastCoordinate() {
     coordinates[coordinates.length - 1].duration =
       Date.now() - startingTaskTimestamp - coordinates[coordinates.length - 1].timestamp;
-    console.log('finalizing duration of ' + coordinates[coordinates.length - 1].duration)
+    //console.log('finalizing duration of ' + coordinates[coordinates.length - 1].duration)
   }
 
 

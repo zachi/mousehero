@@ -21,6 +21,8 @@ exports.generate = function () {
           return;
         if (file.indexOf('manifest.appcache') !== -1)
           return;
+        if (file.indexOf('900X900') !== -1)
+          return;
         file = file.replace(/\s+/g, '%20');
         file = file.replace(publicFolder, '');
         results.push(file);
