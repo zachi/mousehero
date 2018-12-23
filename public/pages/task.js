@@ -11,8 +11,8 @@ import router from "../models/router.js";
 export default (function () {
 
   const blankStimulus = {
-    "name": "fake name",
-    "type": "fake type"
+    "name": "blank",
+    "type": "blank"
   };
   var currentStimulus = blankStimulus;
   var stageDomElement;
@@ -38,7 +38,7 @@ export default (function () {
     if (settings.taskType === 'training' &&
       newStimulus.name !== currentStimulus.name &&
       newStimulus.type !== currentStimulus.type) {
-      //console.log('type change');
+      //console.log(`type change from ${currentStimulus.name} to  ${newStimulus.name}`);
       if (newStimulus.type === emotionTypes.avarsive)
         audio.startInterrupt();
       else
@@ -136,9 +136,9 @@ export default (function () {
     stageDomElement.addEventListener('mouseleave', handleCursorOutOfMatrix);
 
 
-    matrix.getDomElement().classList.remove('matrix--loaded-hidden');
+    matrix.getDomElement().classList.remove('matrix--loaded-hidden'); 
     matrixCursorEffect.init();
-    handleMatrixCursorEffect(getMatrixCursorInitialPosition())
+    matrixCursorEffect.updateCursor(...getMatrixCursorInitialPosition());
   }
 
   function getMatrixCursorInitialPosition() {
@@ -146,17 +146,13 @@ export default (function () {
       var lastPosition = coordinates[coordinates.length - 1];
       if (lastPosition.stimulusName === "outOfMatrix")
         lastPosition = coordinates[coordinates.length - 2];
-      return {
-        clientX: lastPosition.x + stageOffset.left,
-        clientY: lastPosition.y + stageOffset.top,
-        preventDefault: function () {}
-      };
+      return [lastPosition.x,
+        lastPosition.y
+      ];
     }
-    return {
-      clientX: Math.round(document.body.clientWidth / 2),
-      clientY: Math.round(document.body.clientHeight / 2),
-      preventDefault: function () {}
-    };
+    return [Math.round(document.body.clientWidth / 2) - stageOffset.left,
+      Math.round(document.body.clientHeight / 2) - stageOffset.top
+    ];
 
   }
 
