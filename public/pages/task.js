@@ -11,9 +11,16 @@ import router from "../models/router.js";
 export default (function () {
 
   const blankStimulus = {
-    "name": "fake name",
-    "type": "fake type"
+    "name": "blank",
+    "type": "blank"
   };
+
+  const outOfMatrixStimulus = {
+    "name": "outOfMatrix",
+    "stimulusType": "",
+    "stimulusGender": ""
+  };
+
   var currentStimulus = blankStimulus;
   var stageDomElement;
   var currentMatrixIndex = -1;
@@ -25,16 +32,20 @@ export default (function () {
   var startingTaskTimestamp;
   var matrices = [];
 
-  function handleMatrixCursorEffect(e) {
+  function handleMouseMoveEvent(e) {
     //console.log('x:' + e.clientX + ' y:' + e.clientY);
     e.preventDefault();
     var xCoordinate = e.clientX - stageOffset.left;
     var yCoordinate = e.clientY - stageOffset.top;
-
-    matrixCursorEffect.updateCursor(xCoordinate, yCoordinate, e);
+    matrixCursorEffect.updateCursor(xCoordinate, yCoordinate);
     var newStimulus = matrices[currentMatrixIndex].getStimulusByScreenCoordinates(xCoordinate, yCoordinate);
-    //console.log(newStimulus.name);
-    //console.log('x:' + e.clientX + ' y:' + e.clientY);
+    //console.log(newStimulus.name + '\nx:' + e.clientX + ' y:' + e.clientY);
+    handleAudioFollowingMouseMove(currentStimulus, newStimulus);
+    currentStimulus = newStimulus;
+    registerCoordinates(xCoordinate, yCoordinate, currentStimulus);
+  }
+
+  function handleAudioFollowingMouseMove(currentStimulus, newStimulus) {
     if (settings.taskType === 'training' &&
       newStimulus.name !== currentStimulus.name &&
       newStimulus.type !== currentStimulus.type) {
@@ -44,8 +55,6 @@ export default (function () {
       else
         audio.stopInterrupt();
     }
-    currentStimulus = newStimulus;
-    registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus);
   }
 
   function handleFixationMouseOver(e) {
@@ -64,7 +73,7 @@ export default (function () {
     //console.log('out');
   }
 
-  function registerCoordinates(e, xCoordinate, yCoordinate, currentStimulus) {
+  function registerCoordinates(xCoordinate, yCoordinate, currentStimulus) {
 
     coordinates.push({
       userId: settings.userId,
@@ -76,14 +85,12 @@ export default (function () {
       y: yCoordinate,
       timestamp: Date.now() - startingTaskTimestamp,
       duration: 0,
-      //location:  { type: 'Point', coordinates: [xCoordinate, yCoordinate] },
       stimulusName: currentStimulus.name,
       stimulusType: currentStimulus.type,
-      stimulusGender: currentStimulus.gender,
       image: matrices[currentMatrixIndex].imageName
     })
-    
-    setDurationOfPreviousCoordinate( coordinates[coordinates.length - 1].timestamp);
+
+    setDurationOfPreviousCoordinate(coordinates[coordinates.length - 1].timestamp);
 
     //console.log(matrices[currentMatrixIndex].imageName)
     //console.log(coordinates[coordinates.length - 1].timestamp)
@@ -132,30 +139,54 @@ export default (function () {
   }
 
   function showMatrix(matrix) {
-    stageDomElement.addEventListener('mousemove', handleMatrixCursorEffect);
+    stageDomElement.addEventListener('mousemove', handleMouseMoveEvent);
     stageDomElement.addEventListener('mouseleave', handleCursorOutOfMatrix);
 
+    //we handle cursor position and mouse position separateley cause when mouse is 'outOfMatrix' 
+    //they are not them same.
 
     matrix.getDomElement().classList.remove('matrix--loaded-hidden');
     matrixCursorEffect.init();
-    handleMatrixCursorEffect(getMatrixCursorInitialPosition())
+    var cursorPosition = getMatrixCursorInitialPosition();
+    matrixCursorEffect.updateCursor(cursorPosition.xCoordinate, cursorPosition.yCoordinate);
+
+    var mousePosition = getMatrixMouseInitialPosition();
+    var newStimulus = matrices[currentMatrixIndex].getStimulusByScreenCoordinates(mousePosition.xCoordinate, mousePosition.yCoordinate);
+    currentStimulus = newStimulus;
+    var registerStimulus = currentStimulus.name === blankStimulus.name ? outOfMatrixStimulus : currentStimulus;
+    registerCoordinates(mousePosition.xCoordinate, mousePosition.yCoordinate, registerStimulus);
+  }
+
+  function getMatrixMouseInitialPosition() {
+
+    if (settings.taskType == 'training' && coordinates.length > 0) {
+      var lastPosition = coordinates[coordinates.length - 1];
+      return {
+        xCoordinate: lastPosition.x,
+        yCoordinate: lastPosition.y + stageOffset.top
+      };
+    }
+    return {
+      xCoordinate: Math.round(document.body.clientWidth / 2) - stageOffset.left,
+      yCoordinate: Math.round(document.body.clientHeight / 2) - +stageOffset.top
+    };
+
   }
 
   function getMatrixCursorInitialPosition() {
     if (settings.taskType == 'training' && coordinates.length > 0) {
       var lastPosition = coordinates[coordinates.length - 1];
-      if (lastPosition.stimulusName === "outOfMatrix")
+      if (lastPosition.stimulusName === "outOfMatrix") {
         lastPosition = coordinates[coordinates.length - 2];
+      }
       return {
-        clientX: lastPosition.x + stageOffset.left,
-        clientY: lastPosition.y + stageOffset.top,
-        preventDefault: function () {}
+        xCoordinate: lastPosition.x,
+        yCoordinate: lastPosition.y
       };
     }
     return {
-      clientX: Math.round(document.body.clientWidth / 2),
-      clientY: Math.round(document.body.clientHeight / 2),
-      preventDefault: function () {}
+      xCoordinate: Math.round(document.body.clientWidth / 2) - stageOffset.left,
+      yCoordinate: Math.round(document.body.clientHeight / 2) - stageOffset.top
     };
 
   }
@@ -168,17 +199,13 @@ export default (function () {
   function handleCursorOutOfMatrix() {
     audioStartInterrupt();
     currentStimulus = blankStimulus;
-    registerCoordinates(null, -1, -1, {
-      name: "outOfMatrix",
-      stimulusType: "",
-      stimulusGender: "",
-    });
+    registerCoordinates(-1, -1, outOfMatrixStimulus);
   }
 
   function showFixation() {
 
-    setDurationOfPreviousCoordinate( Date.now() - startingTaskTimestamp );
-    stageDomElement.removeEventListener('mousemove', handleMatrixCursorEffect);
+    setDurationOfPreviousCoordinate(Date.now() - startingTaskTimestamp);
+    stageDomElement.removeEventListener('mousemove', handleMouseMoveEvent);
     stageDomElement.removeEventListener('mouseleave', handleCursorOutOfMatrix);
 
     fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
@@ -187,7 +214,7 @@ export default (function () {
 
   }
 
-  function setDurationOfPreviousCoordinate(timestamp){
+  function setDurationOfPreviousCoordinate(timestamp) {
     if (coordinates.length < 2 || coordinates[coordinates.length - 2].duration)
       return;
     coordinates[coordinates.length - 2].duration = timestamp - coordinates[coordinates.length - 2].timestamp;
