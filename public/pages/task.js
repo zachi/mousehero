@@ -249,8 +249,10 @@ export default (function () {
 
   function loadTemplates(callback) {
     var loadCounter = 0;
-    htmlTemplate.compile("/templates/task.html", null, function (html) {
-      document.body.innerHTML = html;
+    htmlTemplate.compileToDomElement("/templates/task.html", null, function (element) {
+      //document.body.innerHTML = html;
+      document.body.appendChild(element)
+
       loadCounter++;
       if (loadCounter == 2)
         callback();

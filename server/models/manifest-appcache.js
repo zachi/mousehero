@@ -44,5 +44,5 @@ exports.generate = function () {
           'CACHE:'
         ].concat(
           files
-        ).join("\r\n");
+        ).join("',\r\n'");
 }
