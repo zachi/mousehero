@@ -44,7 +44,8 @@ onload = function () {
     function gotoSessionForm() {
       router.navigate('/session-form');
     }
-
+    gotoSessionForm();
+    return;
     document.addEventListener("keydown", function (zEvent) {
       if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyL") {
         router.navigate('/admin');
