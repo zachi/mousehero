@@ -1,4 +1,4 @@
-{
+[{
   "_id": "5bf32857f157921b84da2eff",
   "matrixMagnifierLayers": [{
     "diameter": 100,
@@ -27,4 +27,4 @@
   }],
   "matrixBlurIntensity": 9,
   "numberOfTrialsOverride": 0
-}
+}]
