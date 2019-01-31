@@ -45,13 +45,13 @@ onload = function () {
       router.navigate('/session-form');
     }
     gotoSessionForm();
-    return;
+    
     document.addEventListener("keydown", function (zEvent) {
       if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyL") {
         router.navigate('/admin');
       }
     });
-
+return;
     if (!navigator.onLine) {
       gotoSessionForm();
       return;
