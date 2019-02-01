@@ -7,4 +7,5 @@ public/images/Set B
 public/music
 nohup.out
 .env
+server/models/settings.json
 server/encryption
