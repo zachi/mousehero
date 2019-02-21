@@ -85,7 +85,6 @@ export default (function () {
       var numberOfTrials = rows.length;
       if (settings.numberOfTrialsOverride)
         numberOfTrials = settings.numberOfTrialsOverride;
-      numberOfTrials = 3;
       for (let imageIndex = 1; imageIndex < numberOfTrials; imageIndex++) {
         matrices.push(
           new matrix(rows[imageIndex].children)
