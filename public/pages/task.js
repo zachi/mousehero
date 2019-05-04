@@ -226,7 +226,11 @@ export default (function () {
   }
 
   function isTimeForFixation() {
-    return settings.taskType == 'measurement' && fixationDomElement.style.display == 'none';
+    if(fixationDomElement.style.display != 'none')
+      return false;
+    if(currentMatrixIndex == -1)
+      return true;
+    return settings.taskType == 'measurement';
   }
 
   function mainExecutionLoop() {
@@ -236,6 +240,7 @@ export default (function () {
       router.navigate("/the-end");
       return;
     }
+    
     if (isTimeForFixation()) {
       showFixation();
       return;
@@ -271,11 +276,9 @@ export default (function () {
       startingTaskTimestamp = Date.now()
       stageDomElement = document.querySelector('.stage');
 
-      if (settings.taskType == 'measurement') {
         stageDomElement.appendChild(fixationDomElement);
         fixationDomElement.addEventListener('mouseover', handleFixationMouseOver)
         fixationDomElement.addEventListener('mouseout', handleFixationMouseOut)
-      }
 
       stageOffset = {
         "left": stageDomElement.offsetLeft,

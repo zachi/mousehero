@@ -3,5 +3,8 @@ export default {
   set:"סט",
   preOrPost: "לפני/אחרי",
   blockNumber: "מספר בלוק",
-  continue:"המשך"
+  continue:"המשך", 
+  everyMatrix: "כל מטריצה",
+  theFirstMatrix: "המטריצה הראשונה"
+ 
 }

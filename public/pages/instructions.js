@@ -1,6 +1,7 @@
 import htmlTemplate from "../models/html-template.js"
 import router from "../models/router.js";
 import settings from "../models/settings.js";
+import texts from "../models/texts.he.js"
 
 
 export default (function () {
@@ -9,12 +10,12 @@ export default (function () {
   function handleSpacebarClick(e) {
     if (e.key !== ' ')
       return;
-    if (rootElement.classList.contains('instructions--matrix-first') && settings.taskType === 'training') {   
-      rootElement.classList.remove('instructions--matrix-first');
-      rootElement.classList.add('instructions--matrix-second');
-      return;
-    }
-    if (rootElement.classList.contains('instructions--matrix-first') && settings.taskType === 'measurement') {   
+    // if (rootElement.classList.contains('instructions--matrix-first') && settings.taskType === 'training') {   
+    //   rootElement.classList.remove('instructions--matrix-first');
+    //   rootElement.classList.add('instructions--matrix-second');
+    //   return;
+    // }
+    if (rootElement.classList.contains('instructions--matrix-first')) {   
       rootElement.classList.remove('instructions--matrix-first');
       rootElement.classList.add('instructions--fixation');
       return;
@@ -34,7 +35,8 @@ export default (function () {
 
   return {
     show: function () {
-      (htmlTemplate.compileToDomElement("/templates/instructions.html", {}, function(html){
+      var text = settings.taskType == 'training' ? texts.theFirstMatrix : texts.everyMatrix;
+      (htmlTemplate.compileToDomElement("/templates/instructions.html", {text}, function(html){
         document.body.appendChild(html)
         rootElement = document.querySelector('.instructions');
         rootElement.classList.add('instructions--matrix-first');
