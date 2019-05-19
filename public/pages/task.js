@@ -63,6 +63,10 @@ export default (function () {
 
       //console.log('enough time on fixation');
       mainExecutionLoop();
+      //training sessions will run till here only once (only one fixation at the beginning)
+      if (settings.taskType == 'training') {
+        audio.play();
+      }
 
     }, 2000);
 
@@ -163,12 +167,12 @@ export default (function () {
       var lastPosition = coordinates[coordinates.length - 1];
       return {
         xCoordinate: lastPosition.x,
-        yCoordinate: lastPosition.y + stageOffset.top
+        yCoordinate: lastPosition.y
       };
     }
     return {
       xCoordinate: Math.round(document.body.clientWidth / 2) - stageOffset.left,
-      yCoordinate: Math.round(document.body.clientHeight / 2) - +stageOffset.top
+      yCoordinate: Math.round(document.body.clientHeight / 2) - stageOffset.top
     };
 
   }
@@ -246,6 +250,8 @@ export default (function () {
       return;
     }
 
+
+
     currentMatrixIndex++;
     showCurrentMatrix();
     setTimeout(mainExecutionLoop, settings.matrixDisplayDuration);
@@ -288,10 +294,6 @@ export default (function () {
       //preload first matrix image
       loaAndHideMatrix(matrices[0])
       mainExecutionLoop();
-
-      if (settings.taskType == 'training') {
-        audio.play();
-      }
 
     })
   }
