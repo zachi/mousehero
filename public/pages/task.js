@@ -57,6 +57,14 @@ export default (function () {
     }
   }
 
+  function applyAudioByStimulus(stimulus) {
+      if (stimulus.type === emotionTypes.avarsive)
+        audioStartInterrupt();
+      else
+        audioStopInterrupt();
+    
+  }
+
   function handleFixationMouseOver(e) {
     //console.log('over');
     cursorOnFixationTimeout = setTimeout(() => {
@@ -155,8 +163,8 @@ export default (function () {
     matrixCursorEffect.updateCursor(cursorPosition.xCoordinate, cursorPosition.yCoordinate);
 
     var mousePosition = getMatrixMouseInitialPosition();
-    var newStimulus = matrices[currentMatrixIndex].getStimulusByScreenCoordinates(mousePosition.xCoordinate, mousePosition.yCoordinate);
-    currentStimulus = newStimulus;
+    currentStimulus = matrices[currentMatrixIndex].getStimulusByScreenCoordinates(mousePosition.xCoordinate, mousePosition.yCoordinate);
+    applyAudioByStimulus(currentStimulus);
     var registerStimulus = currentStimulus.name === blankStimulus.name ? outOfMatrixStimulus : currentStimulus;
     registerCoordinates(mousePosition.xCoordinate, mousePosition.yCoordinate, registerStimulus);
   }
@@ -198,6 +206,11 @@ export default (function () {
   function audioStartInterrupt() {
     if (settings.taskType == 'training')
       audio.startInterrupt();
+  }
+
+  function audioStopInterrupt() {
+    if (settings.taskType == 'training')
+      audio.stopInterrupt();
   }
 
   function handleCursorOutOfMatrix() {
